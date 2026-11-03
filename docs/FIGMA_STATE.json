@@ -1,0 +1,558 @@
+{
+  "sessionId": "ac8ea93d-38fe-4e04-98d1-51d5f7432587",
+  "team": "team::1316499924732832341",
+  "key": "iQF4XWbgrY5q2pPO7FTR7w",
+  "pages": [
+    {
+      "id": "0:1",
+      "name": "00 Start Here"
+    },
+    {
+      "id": "3:2",
+      "name": "01 Flows"
+    },
+    {
+      "id": "3:3",
+      "name": "02 Foundations"
+    },
+    {
+      "id": "3:4",
+      "name": "03 Components"
+    },
+    {
+      "id": "3:5",
+      "name": "04 Game Wireframes"
+    },
+    {
+      "id": "3:6",
+      "name": "05 Prototype"
+    },
+    {
+      "id": "3:7",
+      "name": "06 Art Handoff"
+    },
+    {
+      "id": "3:8",
+      "name": "07 Review Log"
+    }
+  ],
+  "variables": {
+    "paper": "VariableID:3:12",
+    "ink": "VariableID:3:14",
+    "muted": "VariableID:3:16",
+    "line": "VariableID:3:18",
+    "accent": "VariableID:3:20",
+    "white": "VariableID:3:22",
+    "cash": "VariableID:3:24",
+    "coins": "VariableID:3:26",
+    "gems": "VariableID:3:28",
+    "learning": "VariableID:3:30",
+    "warning": "VariableID:3:32",
+    "scene": "VariableID:3:34",
+    "space/sm": "VariableID:3:35",
+    "space/md": "VariableID:3:36",
+    "space/lg": "VariableID:3:37",
+    "radius/control": "VariableID:3:38"
+  },
+  "styles": {
+    "12": "S:4238ada2aa09e5a24ad67db3a8e742d125ba6ac8,",
+    "16": "S:4377805c9c146f58c5a914cf83af7b5c2ebe9b72,",
+    "18": "S:c8acaa10e1c7ac10b45ef95371ae17a683f817af,",
+    "24": "S:51ad1cbbaa9c333254f1f4ccb97ca8013c2bc0fa,",
+    "32": "S:c7b90ea0be777271c9eb7479ab0af8b85a018955,",
+    "48": "S:e7d2a62421f02ef7147e48f354e76f195998a377,"
+  },
+  "components": {
+    "Button": "3:48",
+    "Budget row": "3:61",
+    "Destination card": "3:71",
+    "Store item": "3:84",
+    "Helper card": "3:94",
+    "Notice": "3:104"
+  },
+  "button": [
+    {
+      "id": "3:45",
+      "name": "State=Primary"
+    },
+    {
+      "id": "3:46",
+      "name": "State=Secondary"
+    },
+    {
+      "id": "3:47",
+      "name": "State=Disabled"
+    }
+  ],
+  "counts": {
+    "sets": 6,
+    "variants": 19
+  },
+  "frames": [
+    {
+      "id": "WF-01",
+      "node": "5:2",
+      "controls": [
+        {
+          "id": "5:6",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:45",
+          "target": "WF-02"
+        }
+      ],
+      "inspectorHeight": 324
+    },
+    {
+      "id": "WF-02",
+      "node": "5:55",
+      "controls": [
+        {
+          "id": "5:59",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:98",
+          "target": "WF-03"
+        },
+        {
+          "id": "5:100",
+          "target": "WF-10"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-03",
+      "node": "5:110",
+      "controls": [
+        {
+          "id": "5:114",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:153",
+          "target": "WF-03-READY"
+        },
+        {
+          "id": "5:155",
+          "target": "WF-02"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-03-READY",
+      "node": "5:165",
+      "controls": [
+        {
+          "id": "5:169",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:208",
+          "target": "WF-04"
+        },
+        {
+          "id": "5:210",
+          "target": "WF-02"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-04",
+      "node": "5:220",
+      "controls": [
+        {
+          "id": "5:224",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:271",
+          "target": "WF-04-SELECTED"
+        },
+        {
+          "id": "5:273",
+          "target": "WF-04-DETAILS"
+        },
+        {
+          "id": "5:275",
+          "target": "WF-10-MISSING"
+        }
+      ],
+      "inspectorHeight": 436
+    },
+    {
+      "id": "WF-04-SELECTED",
+      "node": "5:285",
+      "controls": [
+        {
+          "id": "5:289",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:340",
+          "target": "WF-04-ROTATED"
+        },
+        {
+          "id": "5:342",
+          "target": "WF-10-DELETE"
+        },
+        {
+          "id": "5:344",
+          "target": "WF-04"
+        }
+      ],
+      "inspectorHeight": 520
+    },
+    {
+      "id": "WF-04-ROTATED",
+      "node": "5:354",
+      "controls": [
+        {
+          "id": "5:358",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:406",
+          "target": "WF-04-DETAILS"
+        },
+        {
+          "id": "5:408",
+          "target": "WF-04-SELECTED"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-04-DETAILS",
+      "node": "5:418",
+      "controls": [
+        {
+          "id": "5:422",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:472",
+          "target": "WF-05"
+        },
+        {
+          "id": "5:474",
+          "target": "WF-04-ROTATED"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-05",
+      "node": "5:484",
+      "controls": [
+        {
+          "id": "5:488",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:541",
+          "target": "WF-05-GOLDEN"
+        },
+        {
+          "id": "5:543",
+          "target": "WF-05-FRAME"
+        },
+        {
+          "id": "5:545",
+          "target": "WF-04-DETAILS"
+        }
+      ],
+      "inspectorHeight": 520
+    },
+    {
+      "id": "WF-05-FRAME",
+      "node": "5:555",
+      "controls": [
+        {
+          "id": "5:559",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:609",
+          "target": "WF-05"
+        },
+        {
+          "id": "5:611",
+          "target": "WF-05-GOLDEN"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-05-GOLDEN",
+      "node": "5:621",
+      "controls": [
+        {
+          "id": "5:625",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:678",
+          "target": "WF-06"
+        },
+        {
+          "id": "5:680",
+          "target": "WF-05"
+        }
+      ],
+      "inspectorHeight": 464
+    },
+    {
+      "id": "WF-06",
+      "node": "5:690",
+      "controls": [
+        {
+          "id": "5:694",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:744",
+          "target": "WF-06-DUPLICATE"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-06-DUPLICATE",
+      "node": "5:756",
+      "controls": [
+        {
+          "id": "5:760",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:810",
+          "target": "WF-06-DIRTY"
+        },
+        {
+          "id": "5:812",
+          "target": "WF-06"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-06-DIRTY",
+      "node": "5:822",
+      "controls": [
+        {
+          "id": "5:826",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:879",
+          "target": "WF-06-SAVED"
+        },
+        {
+          "id": "5:881",
+          "target": "WF-10-UNSAVED"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-06-SAVED",
+      "node": "5:891",
+      "controls": [
+        {
+          "id": "5:895",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:948",
+          "target": "WF-07"
+        },
+        {
+          "id": "5:950",
+          "target": "WF-08"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-07",
+      "node": "5:960",
+      "controls": [
+        {
+          "id": "5:964",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:1037",
+          "target": "WF-08"
+        },
+        {
+          "id": "5:1039",
+          "target": "WF-06-SAVED"
+        }
+      ],
+      "inspectorHeight": 464
+    },
+    {
+      "id": "WF-08",
+      "node": "5:1049",
+      "controls": [
+        {
+          "id": "5:1053",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:1112",
+          "target": "WF-09"
+        },
+        {
+          "id": "5:1114",
+          "target": "WF-06-SAVED"
+        },
+        {
+          "id": "5:1116",
+          "target": "WF-09-ERROR"
+        }
+      ],
+      "inspectorHeight": 604
+    },
+    {
+      "id": "WF-09",
+      "node": "5:1126",
+      "controls": [
+        {
+          "id": "5:1130",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:1183",
+          "target": "WF-06-SAVED"
+        },
+        {
+          "id": "5:1185",
+          "target": "WF-08"
+        },
+        {
+          "id": "5:1187",
+          "target": "WF-01"
+        }
+      ],
+      "inspectorHeight": 436
+    },
+    {
+      "id": "WF-09-ERROR",
+      "node": "5:1197",
+      "controls": [
+        {
+          "id": "5:1201",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:1254",
+          "target": "WF-08"
+        },
+        {
+          "id": "5:1256",
+          "target": "WF-06-SAVED"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-10",
+      "node": "5:1266",
+      "controls": [
+        {
+          "id": "5:1270",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:1309",
+          "target": "WF-02"
+        },
+        {
+          "id": "5:1311",
+          "target": "WF-10-MISSING"
+        },
+        {
+          "id": "5:1313",
+          "target": "WF-01"
+        }
+      ],
+      "inspectorHeight": 436
+    },
+    {
+      "id": "WF-10-MISSING",
+      "node": "5:1323",
+      "controls": [
+        {
+          "id": "5:1327",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:1375",
+          "target": "WF-04-DETAILS"
+        },
+        {
+          "id": "5:1377",
+          "target": "WF-04"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-10-DELETE",
+      "node": "5:1387",
+      "controls": [
+        {
+          "id": "5:1391",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:1439",
+          "target": "WF-04-SELECTED"
+        },
+        {
+          "id": "5:1441",
+          "target": "WF-02"
+        }
+      ],
+      "inspectorHeight": 380
+    },
+    {
+      "id": "WF-10-UNSAVED",
+      "node": "5:1451",
+      "controls": [
+        {
+          "id": "5:1455",
+          "target": "WF-01"
+        },
+        {
+          "id": "5:1508",
+          "target": "WF-07"
+        },
+        {
+          "id": "5:1510",
+          "target": "WF-06"
+        },
+        {
+          "id": "5:1512",
+          "target": "WF-06-DIRTY"
+        }
+      ],
+      "inspectorHeight": 436
+    }
+  ],
+  "prototype": "https://www.figma.com/proto/iQF4XWbgrY5q2pPO7FTR7w?node-id=5-2&starting-point-node-id=5%3A2",
+  "validation": {
+    "date": "2026-11-03",
+    "frames": 23,
+    "navigationLinks": 73,
+    "missingTargets": 0,
+    "unreachableStates": 0
+  }
+}

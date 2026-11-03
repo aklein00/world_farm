@@ -18,7 +18,7 @@ Desktop browser, curated GLB kit, roughly twelve modules, three lighting presets
 6. Validate save/load, undo/redo, camera continuity, and export.
 7. Produce the first reusable Stack City block and presentation views.
 
-No image generation, app implementation, or Figma edits are part of this documentation pass.
+The original documentation-only pass has been followed by the 2026-11-03 implementation milestone.
 
 ## First app acceptance
 
@@ -40,3 +40,11 @@ Target devices, real kit source, renderer, projection, import scope, save model,
 ## Review log
 
 Append changes with date, reason, document impact, and Figma/app links. Mark proposals as confirmed only when supported by the owner or incoming brief.
+
+## 2026-11-03 implementation milestone
+
+Confirmed by owner: Three.js for both projects; no game-engine migration requirement; two new native Figma files in aklein personal; cube-led, slightly older environmental styling; concepts before detailed modeling; main-branch delivery.
+
+Completed: native Figma foundation/components/flows/prototype/handoff; browser foundation kit and three-market concept comparison lab. See [milestone recap](MILESTONE_2026-11-03.md) for validation and remaining work.
+
+The premise, educational approach and loop remain reviewable. Camera, palette, scenario amounts and specific architecture variants are provisional design decisions rather than owner-approved final direction.

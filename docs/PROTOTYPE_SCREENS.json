@@ -1,0 +1,781 @@
+[
+  {
+    "id": "WF-01",
+    "title": "Start with a small world.",
+    "sub": "Create a project from a reusable foundation kit.",
+    "fields": [
+      [
+        "Project name",
+        "Neighborhood study"
+      ],
+      [
+        "Kit",
+        "Foundation kit v0.1"
+      ],
+      [
+        "First state",
+        "Foundation"
+      ]
+    ],
+    "buttons": [
+      [
+        "Create project",
+        "WF-02"
+      ]
+    ]
+  },
+  {
+    "id": "WF-02",
+    "title": "Your blank canvas.",
+    "sub": "Choose a kit, then place your first module.",
+    "fields": [
+      [
+        "Selection",
+        "None"
+      ],
+      [
+        "Camera",
+        "Gameplay A \u00b7 orthographic"
+      ],
+      [
+        "Save status",
+        "New project"
+      ]
+    ],
+    "buttons": [
+      [
+        "Choose a kit",
+        "WF-03"
+      ],
+      [
+        "Project settings",
+        "WF-10"
+      ]
+    ]
+  },
+  {
+    "id": "WF-03",
+    "title": "A kit with room to grow.",
+    "sub": "Choose the market as your first module.",
+    "fields": [
+      [
+        "Kit",
+        "Foundation v0.1"
+      ],
+      [
+        "Market footprint",
+        "6 \u00d7 4.2 m"
+      ],
+      [
+        "Pivot",
+        "Ground center"
+      ]
+    ],
+    "buttons": [
+      [
+        "Use foundation kit",
+        "WF-03-READY"
+      ],
+      [
+        "Cancel",
+        "WF-02"
+      ]
+    ]
+  },
+  {
+    "id": "WF-03-READY",
+    "title": "Place the corner market.",
+    "sub": "Prepared placement preview; Figma simulates geometry.",
+    "fields": [
+      [
+        "Module",
+        "Market"
+      ],
+      [
+        "Snap",
+        "1 m grid"
+      ],
+      [
+        "Placement",
+        "Valid"
+      ]
+    ],
+    "buttons": [
+      [
+        "Place market",
+        "WF-04"
+      ],
+      [
+        "Cancel placement",
+        "WF-02"
+      ]
+    ]
+  },
+  {
+    "id": "WF-04",
+    "title": "One block. A beginning.",
+    "sub": "Select the market to inspect its transform.",
+    "building": true,
+    "fields": [
+      [
+        "Objects",
+        "1 market"
+      ],
+      [
+        "State",
+        "Foundation \u00b7 unsaved"
+      ],
+      [
+        "Camera",
+        "Gameplay A"
+      ]
+    ],
+    "buttons": [
+      [
+        "Select market",
+        "WF-04-SELECTED"
+      ],
+      [
+        "Add tree & car",
+        "WF-04-DETAILS"
+      ],
+      [
+        "Missing asset example",
+        "WF-10-MISSING"
+      ]
+    ]
+  },
+  {
+    "id": "WF-04-SELECTED",
+    "title": "Give it a point of view.",
+    "sub": "Object transform is separate from camera navigation.",
+    "building": true,
+    "selected": true,
+    "fields": [
+      [
+        "Position X / Y / Z",
+        "0 / 0 / 0 m"
+      ],
+      [
+        "Rotation Y",
+        "0\u00b0"
+      ],
+      [
+        "Scale",
+        "1 / 1 / 1"
+      ],
+      [
+        "Material",
+        "Warm corner"
+      ]
+    ],
+    "buttons": [
+      [
+        "Rotate 90\u00b0",
+        "WF-04-ROTATED"
+      ],
+      [
+        "Delete\u2026",
+        "WF-10-DELETE"
+      ],
+      [
+        "Deselect",
+        "WF-04"
+      ]
+    ]
+  },
+  {
+    "id": "WF-04-ROTATED",
+    "title": "Same module. New orientation.",
+    "sub": "Rotation is a prepared scene state in this prototype.",
+    "building": true,
+    "selected": true,
+    "rotated": true,
+    "fields": [
+      [
+        "Position X / Y / Z",
+        "0 / 0 / 0 m"
+      ],
+      [
+        "Rotation Y",
+        "90\u00b0"
+      ],
+      [
+        "Scale",
+        "1 / 1 / 1"
+      ]
+    ],
+    "buttons": [
+      [
+        "Add tree & car",
+        "WF-04-DETAILS"
+      ],
+      [
+        "Undo rotation",
+        "WF-04-SELECTED"
+      ]
+    ]
+  },
+  {
+    "id": "WF-04-DETAILS",
+    "title": "Scale comes from small things.",
+    "sub": "A tree and car establish the building\u2019s scale.",
+    "building": true,
+    "details": true,
+    "rotated": true,
+    "fields": [
+      [
+        "Objects",
+        "Market \u00b7 tree \u00b7 car"
+      ],
+      [
+        "Rotation Y",
+        "90\u00b0"
+      ],
+      [
+        "State",
+        "Foundation \u00b7 unsaved"
+      ]
+    ],
+    "buttons": [
+      [
+        "Explore material & light",
+        "WF-05"
+      ],
+      [
+        "Select market",
+        "WF-04-ROTATED"
+      ]
+    ]
+  },
+  {
+    "id": "WF-05",
+    "title": "Shape the atmosphere.",
+    "sub": "Start with broad, legible light and a coherent palette.",
+    "building": true,
+    "details": true,
+    "rotated": true,
+    "fields": [
+      [
+        "Material palette",
+        "Warm corner"
+      ],
+      [
+        "Lighting",
+        "Clear daylight"
+      ],
+      [
+        "Sun direction",
+        "\u221235\u00b0"
+      ],
+      [
+        "Exposure",
+        "1.10"
+      ]
+    ],
+    "buttons": [
+      [
+        "Golden hour",
+        "WF-05-GOLDEN"
+      ],
+      [
+        "Try city frame palette",
+        "WF-05-FRAME"
+      ],
+      [
+        "Back to composition",
+        "WF-04-DETAILS"
+      ]
+    ]
+  },
+  {
+    "id": "WF-05-FRAME",
+    "title": "A bolder structural language.",
+    "sub": "A blue-and-mustard palette study of the same scene.",
+    "building": true,
+    "details": true,
+    "rotated": true,
+    "palette": "frame",
+    "fields": [
+      [
+        "Material palette",
+        "City frame"
+      ],
+      [
+        "Lighting",
+        "Clear daylight"
+      ],
+      [
+        "Camera",
+        "Gameplay A"
+      ]
+    ],
+    "buttons": [
+      [
+        "Use warm corner",
+        "WF-05"
+      ],
+      [
+        "Golden hour",
+        "WF-05-GOLDEN"
+      ]
+    ]
+  },
+  {
+    "id": "WF-05-GOLDEN",
+    "title": "Let the light do some work.",
+    "sub": "Warm key light, calm cool fill, readable shadow shapes.",
+    "building": true,
+    "details": true,
+    "rotated": true,
+    "golden": true,
+    "fields": [
+      [
+        "Material palette",
+        "Warm corner"
+      ],
+      [
+        "Lighting",
+        "Golden hour"
+      ],
+      [
+        "Sun direction",
+        "\u221235\u00b0"
+      ],
+      [
+        "Exposure",
+        "1.10"
+      ]
+    ],
+    "buttons": [
+      [
+        "Save Foundation",
+        "WF-06"
+      ],
+      [
+        "Back to look development",
+        "WF-05"
+      ]
+    ]
+  },
+  {
+    "id": "WF-06",
+    "title": "A state worth keeping.",
+    "sub": "Foundation is saved as a snapshot.",
+    "building": true,
+    "details": true,
+    "rotated": true,
+    "golden": true,
+    "saved": true,
+    "fields": [
+      [
+        "Current state",
+        "Foundation \u00b7 saved"
+      ],
+      [
+        "Camera",
+        "Gameplay A \u00b7 locked"
+      ],
+      [
+        "Snapshot",
+        "Objects, materials, light, camera"
+      ]
+    ],
+    "buttons": [
+      [
+        "Duplicate state",
+        "WF-06-DUPLICATE"
+      ]
+    ]
+  },
+  {
+    "id": "WF-06-DUPLICATE",
+    "title": "Keep the original. Try a change.",
+    "sub": "Connected starts as a copy of Foundation.",
+    "building": true,
+    "details": true,
+    "rotated": true,
+    "golden": true,
+    "fields": [
+      [
+        "State name",
+        "Connected"
+      ],
+      [
+        "Based on",
+        "Foundation"
+      ],
+      [
+        "Camera",
+        "Gameplay A \u00b7 matched"
+      ]
+    ],
+    "buttons": [
+      [
+        "Add chapter decoration",
+        "WF-06-DIRTY"
+      ],
+      [
+        "Cancel duplicate",
+        "WF-06"
+      ]
+    ]
+  },
+  {
+    "id": "WF-06-DIRTY",
+    "title": "A little more connected.",
+    "sub": "The original Foundation snapshot stays unchanged.",
+    "building": true,
+    "details": true,
+    "rotated": true,
+    "golden": true,
+    "decor": true,
+    "fields": [
+      [
+        "Current state",
+        "Connected \u00b7 unsaved"
+      ],
+      [
+        "Changed",
+        "Community sign & planters"
+      ],
+      [
+        "Camera",
+        "Gameplay A \u00b7 locked"
+      ]
+    ],
+    "buttons": [
+      [
+        "Save Connected",
+        "WF-06-SAVED"
+      ],
+      [
+        "Leave without saving\u2026",
+        "WF-10-UNSAVED"
+      ]
+    ]
+  },
+  {
+    "id": "WF-06-SAVED",
+    "title": "Two states. One camera.",
+    "sub": "Connected and Foundation are saved separately.",
+    "building": true,
+    "details": true,
+    "rotated": true,
+    "golden": true,
+    "decor": true,
+    "saved": true,
+    "fields": [
+      [
+        "Current state",
+        "Connected \u00b7 saved"
+      ],
+      [
+        "Compare with",
+        "Foundation"
+      ],
+      [
+        "Camera",
+        "Gameplay A \u00b7 locked"
+      ]
+    ],
+    "buttons": [
+      [
+        "Compare states",
+        "WF-07"
+      ],
+      [
+        "Export",
+        "WF-08"
+      ]
+    ]
+  },
+  {
+    "id": "WF-07",
+    "title": "See exactly what changed.",
+    "sub": "Matched camera, crop, lighting and output size.",
+    "building": true,
+    "details": true,
+    "golden": true,
+    "compare": true,
+    "fields": [
+      [
+        "Left",
+        "Foundation"
+      ],
+      [
+        "Right",
+        "Connected"
+      ],
+      [
+        "Difference",
+        "Sign and planter additions"
+      ],
+      [
+        "Camera",
+        "Gameplay A \u00b7 both states"
+      ]
+    ],
+    "buttons": [
+      [
+        "Export comparison",
+        "WF-08"
+      ],
+      [
+        "Back to editing",
+        "WF-06-SAVED"
+      ]
+    ],
+    "saved": true
+  },
+  {
+    "id": "WF-08",
+    "title": "A predictable result.",
+    "sub": "Preview the exact output before exporting.",
+    "building": true,
+    "details": true,
+    "golden": true,
+    "decor": true,
+    "fields": [
+      [
+        "Output",
+        "PNG comparison sheet"
+      ],
+      [
+        "States",
+        "Foundation + Connected"
+      ],
+      [
+        "Camera",
+        "Gameplay A"
+      ],
+      [
+        "Dimensions",
+        "2560 \u00d7 1440"
+      ],
+      [
+        "Background",
+        "Opaque \u00b7 transparency deferred"
+      ]
+    ],
+    "buttons": [
+      [
+        "Export preview",
+        "WF-09"
+      ],
+      [
+        "Cancel",
+        "WF-06-SAVED"
+      ],
+      [
+        "Simulate export error",
+        "WF-09-ERROR"
+      ]
+    ],
+    "saved": true
+  },
+  {
+    "id": "WF-09",
+    "title": "Ready for your presentation.",
+    "sub": "Simulated success: Figma has not rendered or downloaded a file.",
+    "building": true,
+    "details": true,
+    "golden": true,
+    "decor": true,
+    "fields": [
+      [
+        "Filename",
+        "neighborhood_comparison_v001.png"
+      ],
+      [
+        "Output",
+        "2560 \u00d7 1440"
+      ],
+      [
+        "Manifest",
+        "State, camera & kit versions"
+      ]
+    ],
+    "buttons": [
+      [
+        "Return to editing",
+        "WF-06-SAVED"
+      ],
+      [
+        "Export again",
+        "WF-08"
+      ],
+      [
+        "Start over",
+        "WF-01"
+      ]
+    ],
+    "saved": true
+  },
+  {
+    "id": "WF-09-ERROR",
+    "title": "Your scene is safe.",
+    "sub": "Simulated export failure. Preserve the current project.",
+    "building": true,
+    "details": true,
+    "golden": true,
+    "decor": true,
+    "fields": [
+      [
+        "Status",
+        "Export failed"
+      ],
+      [
+        "Recovery",
+        "Retry with the same settings"
+      ],
+      [
+        "Scene",
+        "Unchanged"
+      ]
+    ],
+    "buttons": [
+      [
+        "Retry",
+        "WF-08"
+      ],
+      [
+        "Return to editing",
+        "WF-06-SAVED"
+      ]
+    ],
+    "saved": true
+  },
+  {
+    "id": "WF-10",
+    "title": "Project settings & recovery.",
+    "sub": "Portable projects; clear recovery paths.",
+    "fields": [
+      [
+        "Project",
+        "Neighborhood study"
+      ],
+      [
+        "Scene format",
+        "Versioned JSON \u00b7 future app"
+      ],
+      [
+        "Storage",
+        "No cloud persistence in Figma"
+      ]
+    ],
+    "buttons": [
+      [
+        "Back to project",
+        "WF-02"
+      ],
+      [
+        "Missing asset example",
+        "WF-10-MISSING"
+      ],
+      [
+        "Reset demo",
+        "WF-01"
+      ]
+    ]
+  },
+  {
+    "id": "WF-10-MISSING",
+    "title": "A module needs attention.",
+    "sub": "Keep the composition and replace the missing dependency.",
+    "building": true,
+    "missing": true,
+    "fields": [
+      [
+        "Missing asset",
+        "Tree variant v0.0"
+      ],
+      [
+        "Stand-in",
+        "Labeled cube"
+      ],
+      [
+        "Other objects",
+        "Preserved"
+      ]
+    ],
+    "buttons": [
+      [
+        "Replace with kit tree",
+        "WF-04-DETAILS"
+      ],
+      [
+        "Return without replacing",
+        "WF-04"
+      ]
+    ]
+  },
+  {
+    "id": "WF-10-DELETE",
+    "title": "Remove the selected market?",
+    "sub": "A destructive action needs a clear exit.",
+    "building": true,
+    "selected": true,
+    "fields": [
+      [
+        "Selection",
+        "Market"
+      ],
+      [
+        "Effect",
+        "Remove one object"
+      ],
+      [
+        "Undo",
+        "Available in future app"
+      ]
+    ],
+    "buttons": [
+      [
+        "Keep market",
+        "WF-04-SELECTED"
+      ],
+      [
+        "Remove market",
+        "WF-02"
+      ]
+    ]
+  },
+  {
+    "id": "WF-10-UNSAVED",
+    "title": "Keep your changes?",
+    "sub": "Connected has unsaved decoration changes.",
+    "building": true,
+    "details": true,
+    "golden": true,
+    "decor": true,
+    "fields": [
+      [
+        "Saved state",
+        "Foundation"
+      ],
+      [
+        "Unsaved state",
+        "Connected"
+      ],
+      [
+        "Choice",
+        "Save, discard or keep editing"
+      ]
+    ],
+    "buttons": [
+      [
+        "Save & compare",
+        "WF-07"
+      ],
+      [
+        "Discard changes",
+        "WF-06"
+      ],
+      [
+        "Keep editing",
+        "WF-06-DIRTY"
+      ]
+    ]
+  }
+]

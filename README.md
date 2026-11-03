@@ -1,22 +1,37 @@
 # WorldFarm
 
-A separate modular environment studio for assembling, lighting, comparing, and presenting game worlds.
+A Three.js foundation lab comparing three cube-based approaches to the same market building, plus a native Figma prototype for the future environment studio.
 
-**Status:** pre-implementation design documentation. No app, images, or Figma file has been created in this pass.
+**Current milestone: 2026-11-03.** Working browser prototype and editable Figma file delivered. Figma owner team: **aklein personal**.
 
-## Start here
+## Preview
 
-1. [Product brief](docs/PRODUCT_BRIEF.md)
-2. [Figma wireframe specification](docs/FIGMA_WIREFRAMES.md)
-3. [Scene and asset contract](docs/SCENE_AND_ASSETS.md)
-4. [ImageFarm reuse assessment](docs/IMAGEFARM_REUSE.md)
-5. [Roadmap](docs/ROADMAP.md)
-6. [Astra starter prompt](docs/ASTRA_STARTER.md)
+- [Working browser preview](https://worldfarm-foundation-lab.aklein00.chatgpt.site) — owner-private; sign in with the owning account.
+- [Figma editor](https://www.figma.com/design/iQF4XWbgrY5q2pPO7FTR7w)
+- [Figma click-through prototype](https://www.figma.com/proto/iQF4XWbgrY5q2pPO7FTR7w?node-id=5-2&starting-point-node-id=5%3A2)
+- [Milestone, decisions and validation](docs/MILESTONE_2026-11-03.md)
+- [Asset handoff](docs/ASSET_CHECKLIST.md)
 
-## Priority
+## Run from a fresh checkout
 
-[Stack City](https://github.com/aklein00/stackCity)'s actual game wireframes and prototype come first. WorldFarm still receives its own wireframes and later app implementation. Stack City is a first use case, not a dependency or the tool's entire identity.
+Requires Python 3. No package installation or build step is needed.
 
-Art generates images locally. Use labeled placeholders in design work.
+```sh
+cd foundation-lab
+python3 -m http.server 4317 --directory dist
+```
 
-Documentation baseline: 2026-11-03.
+Open `http://localhost:4317`. The same server is available through `npm run dev`. Serve over HTTP; opening `index.html` directly does not support module loading. Three.js r181 and its MIT license are vendored under `dist/vendor/three`. Fonts use Google Fonts with local fallbacks.
+
+With Node.js installed, `npm run check` checks JavaScript syntax.
+
+## Design and implementation
+
+- [Figma specification and current coverage](docs/FIGMA_WIREFRAMES.md)
+- [Roadmap](docs/ROADMAP.md)
+- [Figma node ledger](docs/FIGMA_STATE.json)
+- [Curated Figma scenario definitions](docs/PROTOTYPE_SCREENS.json)
+
+The kit recipes live in `foundation-lab/dist/kit.js`; viewer and lighting controls live in `app.js`. Three market concepts share a footprint and camera. The full placement/save/load/comparison studio is a Figma simulation, not an implemented application. The lab is independent of Stack City's runtime.
+
+Earlier planning documents are retained for context; this milestone and current source describe implemented scope. Final production art, broader device testing, and user research remain future work.

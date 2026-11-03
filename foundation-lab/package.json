@@ -1,0 +1,1 @@
+{"name":"worldfarm-foundation-lab","version":"0.1.0","private":true,"type":"module","scripts":{"dev":"python3 -m http.server 4317 --directory dist","check":"node --check dist/app.js && node --check dist/kit.js"}}

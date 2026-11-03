@@ -2,7 +2,7 @@
 
 ## Priority
 
-Build after Stack City's first game wireframe/prototype pass. Keep a separate native Figma file. This document is a specification, not evidence that a file exists.
+Build after Stack City's first game wireframe/prototype pass. Keep a separate native Figma file. The first native Figma milestone is complete; the inventory below remains the design specification.
 
 ## Starting canvas and pages
 
@@ -62,3 +62,12 @@ Keyboard focus and shortcut notes for the future app, labeled controls, readable
 ## Acceptance
 
 Complete connected route; cancel/recovery branches; editable components and auto layout; placeholder IDs ready for local artwork; consistent project/state naming; direct editor and prototype links; list of simulated interactions and unresolved requirements.
+
+
+## Delivered 2026-11-03
+
+[Editor](https://www.figma.com/design/iQF4XWbgrY5q2pPO7FTR7w) · [Prototype](https://www.figma.com/proto/iQF4XWbgrY5q2pPO7FTR7w?node-id=5-2&starting-point-node-id=5%3A2) · [Browser preview](https://worldfarm-foundation-lab.aklein00.chatgpt.site)
+
+23 connected curated states, 73 navigation links, three named starts and ten review screens. All states are reachable from named starts; no missing navigation targets. Native editable UI, shared variables and component variants are present. Placement, state persistence and exports in Figma are simulated. The separate Three.js lab renders actual procedural concept geometry and lighting.
+
+See [milestone limitations](MILESTONE_2026-11-03.md) and [asset sizes/camera rules](ASSET_CHECKLIST.md).
