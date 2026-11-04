@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="View and compare the twelve WorldFarm market models in 3D.">
+  <title>WorldFarm — Market Model Test</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {"imports":{"three":"../vendor/three/build/three.module.js","three/addons/":"../vendor/three/examples/jsm/"}}
+  </script>
+</head>
+<body>
+  <header class="masthead">
+    <a href="../" class="brand"><span aria-hidden="true">▥</span> WORLDFARM</a>
+    <a href="../">Foundation Lab ↗</a>
+  </header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">ASSET TEST / MARKET KIT 01</p>
+      <h1>One market.<br><em>Twelve models.</em></h1>
+      <p class="lede">Compare the Three.js and Blender builds side by side across six styles. Drag any model to orbit and use scroll or pinch to zoom.</p>
+    </section>
+    <div class="toolbar">
+      <label for="light">Lighting</label>
+      <select id="light"><option value="day">Daylight</option><option value="golden">Golden hour</option><option value="dusk">Dusk</option></select>
+      <button id="reset" type="button">Reset cameras</button>
+      <span id="summary" role="status">Loading 12 models…</span>
+    </div>
+    <p id="graphics-error" role="alert" hidden>WebGL is unavailable in this browser. You can still download the models below.</p>
+    <div id="comparisons" class="comparisons"></div>
+    <noscript><p>Enable JavaScript to view the models in 3D.</p></noscript>
+  </main>
+  <footer>WORLDFARM · 6 STYLES / 12 EMBEDDED-TEXTURE GLBS</footer>
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>
