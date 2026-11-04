@@ -32,7 +32,7 @@ for r in recipes:
   if p['bevel']>0:
    mod=ob.modifiers.new('Crafted edge bevel','BEVEL');mod.width=p['bevel'];mod.segments=max(2,r['bevelSegments']);mod.affect='EDGES';bpy.ops.object.modifier_apply(modifier=mod.name)
   # Project each polygon independently into its material's atlas tile.
-  
+
   for old_uv in list(ob.data.uv_layers):ob.data.uv_layers.remove(old_uv)
   uv=ob.data.uv_layers.new(name='UVMap');tile=roles.index(p['mat'])
   for poly in ob.data.polygons:
