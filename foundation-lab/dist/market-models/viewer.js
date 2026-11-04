@@ -3,9 +3,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const styles = [
-  ['04C', 'Peach Modern'], ['04D', 'Rose Twilight'],
-  ['03B', 'Honey Corners'], ['03A', 'Soft Blocks'],
-  ['01D', 'Copper Rooftops'], ['02D', 'Amber Afterglow'],
+  ['04C', 'Peach Modern', -1], ['04D', 'Rose Twilight', -1],
+  ['03B', 'Honey Corners', 1], ['03A', 'Soft Blocks', 1],
+  ['01D', 'Copper Rooftops', -1], ['02D', 'Amber Afterglow', 1],
 ];
 const builds = [['threejs', 'Three.js'], ['blender', 'Blender']];
 const lighting = {
@@ -18,7 +18,7 @@ const comparisons = document.querySelector('#comparisons');
 const summary = document.querySelector('#summary');
 const cards = [];
 
-for (const [id, name] of styles) {
+for (const [id, name, cameraSide] of styles) {
   const code = id.slice(0, 2) + '.' + id.slice(2);
   const pair = document.createElement('section');
   pair.className = 'pair';
@@ -26,13 +26,14 @@ for (const [id, name] of styles) {
   pair.innerHTML = `<div class="pair-heading"><span class="style-code">${code}</span><h2 id="style-${id}">${name}</h2></div><div class="models"></div>`;
   comparisons.append(pair);
   for (const [source, label] of builds) {
-    const url = `./assets/${source}/${id}-market-${source}.glb`;
+    const url = `./assets/${source}/${id}-market-${source}.glb?rev=concept`;
     const figure = document.createElement('figure');
     figure.className = 'model';
     figure.innerHTML = `<div class="stage"><canvas aria-label="${code} ${name}, ${label} 3D model" hidden></canvas><span class="model-status">Loading…</span></div><figcaption><strong>${label}</strong><a href="${url}" download aria-label="Download ${code} ${name} ${label} GLB">GLB ↓</a><span class="stats"></span></figcaption>`;
     pair.querySelector('.models').append(figure);
     cards.push({
       url,
+      cameraSide,
       canvas: figure.querySelector('canvas'),
       status: figure.querySelector('.model-status'),
       stats: figure.querySelector('.stats'),
@@ -146,7 +147,7 @@ function startViewer() {
       });
       card.model = model;
       card.camera = new THREE.OrthographicCamera(-5.35, 5.35, 5.35, -5.35, .1, 100);
-      card.camera.position.set(10, 10, 13);
+      card.camera.position.set(10 * card.cameraSide, 12, 14);
       card.context = card.canvas.getContext('2d', { alpha: false });
       card.controls = new OrbitControls(card.camera, card.canvas);
       card.controls.target.set(0, 2.8, 0);

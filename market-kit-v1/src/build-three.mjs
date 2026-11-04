@@ -7,8 +7,29 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const all=variants.map(recipe);fs.writeFileSync(root+'/src/recipes.json',JSON.stringify(all,null,2));
 if(process.argv.includes('--recipes'))process.exit(0);
 function box(p,segs){const [w,h,d]=p.s,b=p.bevel;if(!b)return new THREE.BoxGeometry(w,h,d).toNonIndexed();const x=w/2-b,y=h/2-b,s=new THREE.Shape();s.moveTo(-x,-y);s.lineTo(x,-y);s.lineTo(x,y);s.lineTo(-x,y);s.closePath();const g=new THREE.ExtrudeGeometry(s,{depth:d-2*b,bevelEnabled:true,bevelSegments:segs,steps:1,bevelSize:b,bevelThickness:b,curveSegments:1});g.translate(0,0,-d/2+b);return g;}
-function hip(p){const [w,h,d]=p.s;const v=[[-w/2,-h/2,-d/2],[w/2,-h/2,-d/2],[w/2,-h/2,d/2],[-w/2,-h/2,d/2],[-w*.27,h/2,-d*.16],[w*.27,h/2,-d*.16],[w*.27,h/2,d*.16],[-w*.27,h/2,d*.16]];const faces=[[0,3,2,1],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]];const out=[];for(const [a,b,c,d] of faces)for(const i of [a,c,b,a,d,c])out.push(...v[i]);const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(out,3));g.computeVertexNormals();return g;}
-function createNativeModel(r){const group=new THREE.Group();group.name=r.id+' '+r.name;for(const p of r.parts){const g=p.type==='hip'?hip(p):box(p,r.bevelSegments);const pos=g.attributes.position,normal=g.attributes.normal;const uv=[];const tile=roles.indexOf(p.mat);for(let i=0;i<pos.count;i++){const n=[normal.getX(i),normal.getY(i),normal.getZ(i)].map(Math.abs);const axis=n.indexOf(Math.max(...n));const a=axis===0?2:0,c=axis===1?2:1;const xyz=[pos.getX(i),pos.getY(i),pos.getZ(i)];const u=xyz[a]/p.s[a]+.5,v=xyz[c]/p.s[c]+.5;uv.push((tile%4+.1+u*.8)/4,(Math.floor(tile/4)+.1+(1-v)*.8)/2);}g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({name:p.mat,roughness:p.mat==='glass'?.3:.78}));m.name=p.name;m.position.fromArray(p.p);m.rotation.x=p.rx||0;group.add(m);}group.updateMatrixWorld(true);return group;}
+function polygonMesh(vertices, faces) {
+  const positions = [];
+  for (const face of faces) {
+    for (let i = 1; i < face.length - 1; i += 1) {
+      for (const index of [face[0], face[i], face[i + 1]]) positions.push(...vertices[index]);
+    }
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+function hip(part) {
+  const [w, h, d] = part.s;
+  const [tx, tz] = part.taper;
+  const vertices = [
+    [-w/2,-h/2,-d/2], [w/2,-h/2,-d/2], [w/2,-h/2,d/2], [-w/2,-h/2,d/2],
+    [-w*tx,h/2,-d*tz], [w*tx,h/2,-d*tz], [w*tx,h/2,d*tz], [-w*tx,h/2,d*tz],
+  ];
+  return polygonMesh(vertices, [[1,2,3,0],[7,6,5,4],[4,5,1,0],[5,6,2,1],[6,7,3,2],[7,4,0,3]]);
+}
+function createNativeModel(r){const group=new THREE.Group();group.name=r.id+' '+r.name;for(const p of r.parts){const g=p.type==='mesh'?polygonMesh(p.vertices,p.faces):p.type==='hip'?hip(p):box(p,r.bevelSegments);const pos=g.attributes.position,normal=g.attributes.normal;const uv=[];const tile=roles.indexOf(p.mat);for(let i=0;i<pos.count;i++){const n=[normal.getX(i),normal.getY(i),normal.getZ(i)].map(Math.abs);const axis=n.indexOf(Math.max(...n));const a=axis===0?2:0,c=axis===1?2:1;const xyz=[pos.getX(i),pos.getY(i),pos.getZ(i)];const u=xyz[a]/p.s[a]+.5,v=xyz[c]/p.s[c]+.5;uv.push((tile%4+.1+u*.8)/4,(Math.floor(tile/4)+.1+(1-v)*.8)/2);}g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({name:p.mat,roughness:p.mat==='glass'?.3:.78}));m.name=p.name;m.position.fromArray(p.p);m.rotation.x=p.rx||0;group.add(m);}group.updateMatrixWorld(true);return group;}
 function exportGLB(model,r){const chunks=[],views=[],accessors=[];let bytes=0;const append=(data,target)=>{const b=Buffer.from(data.buffer??data,data.byteOffset??0,data.byteLength??data.length);const id=views.length;views.push({buffer:0,byteOffset:bytes,byteLength:b.length,...(target?{target}:{})});chunks.push(b);bytes+=b.length;const pad=(4-bytes%4)%4;if(pad){chunks.push(Buffer.alloc(pad));bytes+=pad;}return id;};
  const acc=(data,size,type,min,max)=>{const index=accessors.length;accessors.push({bufferView:append(data,34962),componentType:5126,count:data.length/size,type,...(min?{min,max}:{})});return index;};
  const meshes=[],nodes=[];let total=0;

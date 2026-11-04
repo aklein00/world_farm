@@ -20,7 +20,14 @@
     "warnings": 0,
     "embeddedImages": 1,
     "externalURIs": 0,
-    "issues": []
+    "issues": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/materials/6"
+      }
+    ]
   },
   {
     "file": "threejs/03A-market-threejs.glb",

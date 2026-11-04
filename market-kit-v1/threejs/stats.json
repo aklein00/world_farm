@@ -2,49 +2,49 @@
   {
     "variant": "04C",
     "name": "Peach Modern",
-    "triangles": 2280,
+    "triangles": 1880,
     "drawCalls": 7,
-    "bytes": 227396,
+    "bytes": 189028,
     "embeddedImages": 1
   },
   {
     "variant": "04D",
     "name": "Rose Twilight",
-    "triangles": 2364,
+    "triangles": 1884,
     "drawCalls": 8,
-    "bytes": 236176,
+    "bytes": 190100,
     "embeddedImages": 1
   },
   {
     "variant": "03B",
     "name": "Honey Corners",
-    "triangles": 3544,
+    "triangles": 3300,
     "drawCalls": 6,
-    "bytes": 357172,
+    "bytes": 333648,
     "embeddedImages": 1
   },
   {
     "variant": "03A",
     "name": "Soft Blocks",
-    "triangles": 4212,
+    "triangles": 2632,
     "drawCalls": 6,
-    "bytes": 422252,
+    "bytes": 270240,
     "embeddedImages": 1
   },
   {
     "variant": "01D",
     "name": "Copper Rooftops",
-    "triangles": 2396,
+    "triangles": 2732,
     "drawCalls": 7,
-    "bytes": 238424,
+    "bytes": 270716,
     "embeddedImages": 1
   },
   {
     "variant": "02D",
     "name": "Amber Afterglow",
-    "triangles": 2296,
-    "drawCalls": 8,
-    "bytes": 229524,
+    "triangles": 1796,
+    "drawCalls": 7,
+    "bytes": 180824,
     "embeddedImages": 1
   }
 ]

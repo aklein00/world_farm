@@ -1,44 +1,44 @@
 [
   {
     "variant": "04C",
-    "triangles": 8760,
+    "triangles": 7352,
     "materials": 7,
-    "editableParts": 82,
-    "glbBytes": 622396
+    "editableParts": 67,
+    "glbBytes": 523372
   },
   {
     "variant": "04D",
-    "triangles": 9084,
+    "triangles": 7468,
     "materials": 8,
-    "editableParts": 85,
-    "glbBytes": 646112
+    "editableParts": 67,
+    "glbBytes": 531984
   },
   {
     "variant": "03B",
-    "triangles": 8664,
+    "triangles": 8228,
     "materials": 6,
-    "editableParts": 82,
-    "glbBytes": 623864
+    "editableParts": 76,
+    "glbBytes": 592724
   },
   {
     "variant": "03A",
-    "triangles": 13172,
+    "triangles": 6696,
     "materials": 6,
-    "editableParts": 71,
-    "glbBytes": 958296
+    "editableParts": 55,
+    "glbBytes": 480316
   },
   {
     "variant": "01D",
-    "triangles": 9036,
+    "triangles": 10604,
     "materials": 7,
-    "editableParts": 89,
-    "glbBytes": 641608
+    "editableParts": 98,
+    "glbBytes": 750900
   },
   {
     "variant": "02D",
-    "triangles": 8616,
-    "materials": 8,
-    "editableParts": 86,
-    "glbBytes": 613232
+    "triangles": 6788,
+    "materials": 7,
+    "editableParts": 68,
+    "glbBytes": 483824
   }
 ]

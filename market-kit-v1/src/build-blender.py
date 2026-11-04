@@ -22,8 +22,11 @@ for r in recipes:
  objects=[]
  for p in r['parts']:
   w,h,d=p['s']
-  if p['type']=='hip':
-   vv=[(-w/2,-h/2,-d/2),(w/2,-h/2,-d/2),(w/2,-h/2,d/2),(-w/2,-h/2,d/2),(-w*.27,h/2,-d*.16),(w*.27,h/2,-d*.16),(w*.27,h/2,d*.16),(-w*.27,h/2,d*.16)]
+  if p['type']=='mesh':
+   mesh=bpy.data.meshes.new(p['name']);mesh.from_pydata([xyz(v) for v in p['vertices']],[],p['faces']);mesh.update();ob=bpy.data.objects.new(p['name'],mesh);bpy.context.collection.objects.link(ob)
+  elif p['type']=='hip':
+   tx,tz=p['taper']
+   vv=[(-w/2,-h/2,-d/2),(w/2,-h/2,-d/2),(w/2,-h/2,d/2),(-w/2,-h/2,d/2),(-w*tx,h/2,-d*tz),(w*tx,h/2,-d*tz),(w*tx,h/2,d*tz),(-w*tx,h/2,d*tz)]
    faces=[(1,2,3,0),(7,6,5,4),(4,5,1,0),(5,6,2,1),(6,7,3,2),(7,4,0,3)]
    mesh=bpy.data.meshes.new(p['name']);mesh.from_pydata([xyz(v) for v in vv],[],faces);mesh.update();ob=bpy.data.objects.new(p['name'],mesh);bpy.context.collection.objects.link(ob)
   else:
@@ -51,10 +54,10 @@ for r in recipes:
   asset.objects.link(ob)
  asset['front']='-Y in Blender; +Z in exported GLB';asset['units']='meters';asset['source']='Native bpy meshes; not imported from Three.js'
  world=bpy.data.worlds.new('Studio');world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.32,.38,.48,1);world.node_tree.nodes['Background'].inputs[1].default_value=.45;scene.world=world
- bpy.ops.object.camera_add(location=(10,-14,10));camera=bpy.context.object;camera.name='Orthographic preview';camera.data.type='ORTHO';camera.data.ortho_scale=12.5;aim(camera,(0,-.4,3));scene.camera=camera
+ bpy.ops.object.camera_add(location=(10*r['cameraSide'],-14,12));camera=bpy.context.object;camera.name='Orthographic preview';camera.data.type='ORTHO';camera.data.ortho_scale=12.5;aim(camera,(0,-.4,3));scene.camera=camera
  for name,loc,power,size,color in [('Key',(-7,-9,12),1800,7,(1,.83,.67)),('Fill',(8,-3,7),1000,8,(.72,.83,1)),('Rim',(0,7,10),1700,6,(1,.92,.83))]:
   bpy.ops.object.light_add(type='AREA',location=loc);lamp=bpy.context.object;lamp.name=name;lamp.data.energy=power;lamp.data.shape='DISK';lamp.data.size=size;lamp.data.color=color;aim(lamp,(0,0,2.8))
- scene.render.engine='CYCLES';scene.cycles.samples=32;scene.cycles.use_denoising=True
+ scene.render.engine='CYCLES';scene.cycles.samples=20;scene.cycles.use_denoising=True
  scene.render.resolution_x=900;scene.render.resolution_y=900;scene.render.resolution_percentage=100;scene.render.film_transparent=False
  scene.view_settings.view_transform='AgX';scene.render.image_settings.file_format='PNG';scene.render.filepath=str(root/'previews'/f"{r['id']}-blender.png")
  bpy.ops.object.select_all(action='DESELECT')

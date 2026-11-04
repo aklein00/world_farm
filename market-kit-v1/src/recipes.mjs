@@ -1,83 +1,262 @@
-// Units: meters. Three.js Y-up, front +Z, ground pivot at origin.
-export const variants=[
- {id:'04C',name:'Peach Modern',wall:'#e9af9c',trim:'#fff0de',accent:'#608f8d',roof:'#d4a291',glass:'#506e78',glow:'#ffd79a',bevel:.035,kind:'modern'},
- {id:'04D',name:'Rose Twilight',wall:'#d599b8',trim:'#f4dfe9',accent:'#a77caa',roof:'#ad86ac',glass:'#735f87',glow:'#ffc979',bevel:.045,kind:'rose'},
- {id:'03B',name:'Honey Corners',wall:'#dba051',trim:'#ffe2ac',accent:'#b95f37',roof:'#cb6e35',glass:'#527585',glow:'#efc576',bevel:.12,kind:'honey'},
- {id:'03A',name:'Soft Blocks',wall:'#efb090',trim:'#ffebcf',accent:'#d98268',roof:'#e99e7d',glass:'#648697',glow:'#e9ca9a',bevel:.16,kind:'soft'},
- {id:'01D',name:'Copper Rooftops',wall:'#c59a76',trim:'#f3dbb3',accent:'#8d6447',roof:'#bf7044',glass:'#45687d',glow:'#eac28a',bevel:.025,kind:'copper'},
- {id:'02D',name:'Amber Afterglow',wall:'#b77e69',trim:'#d9b190',accent:'#68596d',roof:'#765e66',glass:'#534d68',glow:'#ffbf62',bevel:.018,kind:'amber'}
+// Meters, +Y up and +Z storefront. Dimensions come from the market in each concept panel.
+export const variants = [
+  { id: '04C', name: 'Peach Modern', wall: '#e3a893', trim: '#ffe4d0', accent: '#d97e80', roof: '#df907e', glass: '#536b7c', glow: '#f5b778', bevel: .025, side: -1 },
+  { id: '04D', name: 'Rose Twilight', wall: '#ce90ac', trim: '#efcfdf', accent: '#e180a4', roof: '#be7296', glass: '#68607a', glow: '#ffc37b', bevel: .045, side: -1 },
+  { id: '03B', name: 'Honey Corners', wall: '#d7934c', trim: '#ffe0a5', accent: '#d95e32', roof: '#d4682f', glass: '#4f7290', glow: '#efc576', bevel: .095, side: 1 },
+  { id: '03A', name: 'Soft Blocks', wall: '#e9a778', trim: '#ffdfb4', accent: '#e16c4c', roof: '#ee9b77', glass: '#55728b', glow: '#e9ca9a', bevel: .085, side: 1 },
+  { id: '01D', name: 'Copper Rooftops', wall: '#c39b77', trim: '#edc99c', accent: '#d96742', roof: '#b86337', glass: '#45657c', glow: '#eac28a', bevel: .025, side: -1 },
+  { id: '02D', name: 'Amber Afterglow', wall: '#a96350', trim: '#e5b58c', accent: '#db6948', roof: '#b76347', glass: '#5d4c54', glow: '#ffb65f', bevel: .018, side: 1 },
 ];
-export const roles=['wall','trim','accent','roof','glass','glow','green','dark'];
-export function recipe(v){
- const parts=[];const b=v.bevel;
- function box(name,p,s,mat='wall',bev=b,rx=0){parts.push({type:'box',name,p,s,mat,bevel:Math.min(bev,...s.map(n=>n*.23)),rx});}
- function hip(name,p,s,mat='roof'){parts.push({type:'hip',name,p,s,mat,bevel:0,rx:0});}
- function frontWin(x,y,z=2.34,w=.82,h=1.05,lit=false){box('Window surround',[x,y,z],[w+.22,h+.24,.15],'trim',b*.7);box('Window pane',[x,y,z+.09],[w,h,.045],lit?'glow':'glass',.01);if(v.kind!=='soft')box('Window sill',[x,y-h*.5-.12,z+.12],[w+.34,.13,.28],'trim',b*.5);}
- function planter(x,y,z,w,d){box('Planter tray',[x,y,z],[w,.26,d],'trim');box('Solid hedge',[x,y+.25,z],[w-.12,.3,d-.12],'green',.07);}
- box('Foundation',[0,.14,0],[6.12,.28,4.72],'trim');
- box('Ground shell',[0,1.42,0],[6,2.56,4.6]);
- const setback=['modern','rose','amber'].includes(v.kind);const upperZ=setback?-.23:0;const upperD=setback?4.04:4.6;
- box('Upper shell',[0,3.78,upperZ],[6,2.16,upperD]);
- box('Floor belt',[0,2.65,0],[6.2,.22,4.8],'trim');
- box('Roof slab',[0,4.92,upperZ],[6.26,.26,upperD+.26],'trim');
- box('Roof inset',[0,5.07,upperZ],[5.66,.1,upperD-.36],'roof');
- for(const x of [-2.96,2.96])box('Side parapet',[x,5.23,upperZ],[.25,.45,upperD-.25],'trim');
- for(const z of [upperZ-upperD/2,upperZ+upperD/2])box('End parapet',[0,5.23,z],[6.15,.45,.25],'trim');
- // Street-facing shopfront. Planes use opaque stylized glass for dependable mobile rendering.
- box('Storefront reveal',[0,1.28,2.315],[5.48,2.12,.08],'dark',0);
- for(const x of [-1.83,1.83]){box('Shop glazing',[x,1.3,2.37],[1.65,1.83,.06],'glass',.012);box('Glazing sill',[x,.34,2.44],[1.86,.14,.2],'trim');}
- box('Door frame',[0,1.25,2.39],[1.65,2.05,.13],'trim');box('Double glass doors',[0,1.24,2.47],[1.39,1.82,.045],'glass',.01);
- box('Door center mullion',[0,1.24,2.51],[.07,1.83,.06],'trim',.01);
- for(const x of [-.17,.17])box('Door pull',[x,1.14,2.56],[.04,.35,.065],'accent',.01);
- for(const x of [-2.78,-.91,.91,2.78])box('Storefront post',[x,1.3,2.43],[.14,2.13,.2],'trim');
- box('Entry step',[0,.1,2.68],[1.94,.2,.65],'trim');
- // Nine alternating broad canopy sections, sloped towards street.
- for(let i=0;i<9;i++){const x=(i-4)*.65;box('Canopy stripe '+i,[x,2.48,2.92],[.65,.13,1.35],i%2?'trim':'accent',Math.min(b,.035),.23);box('Canopy valance '+i,[x,2.24,3.56],[.65,.25,.12],i%2?'trim':'accent',Math.min(b,.04));}
- // Upper fenestration visible from the chosen 3/4 view.
- for(const x of [-1.94,0,1.94])frontWin(x,3.75,upperZ+upperD/2+.05,.8,1.08,v.kind==='rose'||v.kind==='amber');
- for(const side of [-1,1])for(const z of [-1.4,.4]){
- box('Side window surround',[side*3.035,3.77,z],[.14,1.3,1.12],'trim');box('Side window pane',[side*3.12,3.77,z],[.045,1.07,.87],v.kind==='amber'?'glow':'glass',.01);
- box('Ground side window frame',[side*3.035,1.35,z],[.14,1.25,1.15],'trim');box('Ground side window glass',[side*3.12,1.35,z],[.045,1.02,.92],'glass',.01);}
- // Back elevation is complete, suitable for orbiting or placing freely.
- for(const x of [-1.7,1.7]){box('Rear window surround',[x,3.75,upperZ-upperD/2-.06],[1.18,1.25,.14],'trim');box('Rear glass',[x,3.75,upperZ-upperD/2-.15],[.94,1.02,.04],'glass',.01);}
- box('Service door',[0,1.1,-2.34],[1.1,1.9,.08],'accent');
- if(v.kind==='modern'){
- box('Modern side accent',[2.95,3.7,upperZ],[.18,2.13,upperD],'accent');
- box('Front balcony edge',[0,2.99,2.12],[6.15,.3,.28],'trim');planter(-1.65,3.13,2.07,2.05,.4);
- for(const x of [-1.5,0,1.5])box('Pergola blade',[x,5.47,-.2],[.25,.48,2.65],'trim',.035);
- planter(0,5.27,-1.75,3.9,.55);
- }
- if(v.kind==='rose'){
- box('Balcony front',[0,3.0,2.18],[6.12,.33,.27],'trim');planter(-1.6,3.19,2.06,2.08,.42);
- box('Roof room',[1.27,5.67,-.85],[2.4,1.1,1.85],'wall');box('Roof room cap',[1.27,6.29,-.85],[2.65,.2,2.08],'trim');
- box('Roof lantern',[1.27,6.43,-.85],[1.9,.12,1.4],'glow',.035);planter(-1.6,5.3,-1.2,1.9,1.25);
- for(const x of [-1.94,0,1.94])box('Amber window brow',[x,4.42,1.87],[1.13,.09,.15],'glow',.015);
- box('Entrance light strip',[0,2.71,2.44],[5.44,.09,.12],'glow',.015);
- }
- if(v.kind==='honey'){
- for(const x of [-2.89,2.89]){box('Chunky corner pier',[x,3.82,2.16],[.42,2.17,.42],'trim',.1);box('Corner cap',[x,5.34,2.13],[.65,.48,.65],'trim',.13);}
- hip('Hipped clay roof',[0,5.62,-.1],[4.82,1.08,3.3]);box('Roof crown',[0,6.19,-.1],[2.7,.14,1.15],'accent',.05);
- for(const x of [-1.94,0,1.94])box('Thick lower sill',[x,3.06,2.48],[1.18,.23,.35],'trim',.07);
- }
- if(v.kind==='soft'){
- box('Simple roof block',[-1.7,5.45,-1.14],[1.12,.65,1.05],'trim',.16);
- }
- if(v.kind==='copper'){
- for(const x of [-2.87,-.96,.96,2.87])box('Facade pilaster',[x,3.7,2.39],[.22,2.15,.19],'trim',.02);
- box('Cornice lower',[0,4.72,0],[6.32,.17,4.92],'accent');box('Cornice upper',[0,4.91,0],[6.52,.17,5.12],'trim');
- hip('Copper pavilion',[0,5.63,-.35],[4.6,1.12,3.3]);
- for(const x of [-1.3,0,1.3]){box('Copper roof seam',[x,5.63,1.02],[.035,.035,1.5],'accent',0,-.57);}
- planter(-2.28,5.29,1.1,.65,1.5);planter(2.28,5.29,1.1,.65,1.5);
- box('Solar frame',[1.2,5.44,-1.5],[1.45,.12,.86],'trim',.01,-.18);box('Solar panel',[1.2,5.51,-1.49],[1.3,.035,.72],'glass',.0,-.18);
- }
- if(v.kind==='amber'){
- box('Stepped roof tower',[-1.45,5.65,-.9],[2.0,1.1,1.9],'wall');box('Tower cap',[-1.45,6.27,-.9],[2.25,.22,2.12],'accent');
- hip('Faceted tower roof',[-1.45,6.61,-.9],[2.12,.48,2.0],'roof');
- box('Roof utility',[1.45,5.52,-.95],[1.0,.7,.85],'accent');
- for(let i=0;i<4;i++)box('Vent slat',[1.45,5.88,-1.2+i*.15],[.72,.035,.055],'dark',0);
- planter(1.45,5.3,.88,1.6,.7);
- for(const y of [2.76,4.68])box('Emissive facade band',[0,y,1.86],[5.72,.1,.13],'glow',.005);
- box('Angular corner rib',[2.83,3.78,1.84],[.27,2.2,.27],'accent',.0);
- }
- return {id:v.id,name:v.name,units:'meters',up:'Y',front:'+Z',parts,palette:Object.fromEntries(roles.map(k=>[k,v[k]||({green:'#819653',dark:'#34414a'}[k])])),bevelSegments:v.kind==='soft'?3:v.kind==='honey'?2:1,emissive:['rose','amber'].includes(v.kind)};
+export const roles = ['wall', 'trim', 'accent', 'roof', 'glass', 'glow', 'green', 'dark'];
+
+function outline(w, d, radius) {
+  if (!radius) return [[-w / 2, -d / 2], [w / 2, -d / 2], [w / 2, d / 2], [-w / 2, d / 2]];
+  const x = w / 2 - radius;
+  const z = d / 2 - radius;
+  const centers = [[x, z], [-x, z], [-x, -z], [x, -z]];
+  return centers.flatMap(([cx, cz], i) => Array.from({ length: 5 }, (_, j) => {
+    const angle = (i + j / 4) * Math.PI / 2;
+    return [cx + Math.cos(angle) * radius, cz + Math.sin(angle) * radius];
+  }));
+}
+
+function extrusion(w, h, d, radius, rim) {
+  const outer = outline(w, d, radius);
+  const n = outer.length;
+  const loop = (points, y) => points.map(([x, z]) => [x, y, z]);
+  const vertices = [...loop(outer, -h / 2), ...loop(outer, h / 2)];
+  const faces = [];
+  if (rim) {
+    const inner = outline(w - 2 * rim, d - 2 * rim, radius ? Math.max(.04, radius - rim) : 0);
+    vertices.push(...loop(inner, -h / 2), ...loop(inner, h / 2));
+  } else {
+    faces.push(Array.from({ length: n }, (_, i) => i));
+    faces.push(Array.from({ length: n }, (_, i) => 2 * n - i - 1));
+  }
+  for (let i = 0; i < n; i += 1) {
+    const j = (i + 1) % n;
+    faces.push([i, n + i, n + j, j]);
+    if (!rim) continue;
+    faces.push([n + i, 3 * n + i, 3 * n + j, n + j]);
+    faces.push([i, j, 2 * n + j, 2 * n + i]);
+    faces.push([2 * n + i, 2 * n + j, 3 * n + j, 3 * n + i]);
+  }
+  return { vertices, faces };
+}
+
+export function recipe(v) {
+  const parts = [];
+  const emissive = v.id === '02D' || v.id === '04D';
+  const b = v.bevel;
+  const box = (name, p, s, mat = 'wall', bevel = b, rx = 0) => {
+    parts.push({ type: 'box', name, p, s, mat, bevel: Math.min(bevel, ...s.map(n => n * .23)), rx });
+  };
+  const form = (name, p, s, mat, radius, rim = 0, bevel = .025) => {
+    parts.push({ type: 'mesh', name, p, s, mat, bevel, ...extrusion(...s, radius, rim) });
+  };
+  const hip = (name, p, s, taper = [.27, .16]) => {
+    parts.push({ type: 'hip', name, p, s, mat: 'roof', bevel: 0, taper });
+  };
+  function body(w, d, height, radius = 0) {
+    if (radius) {
+      form('Rounded foundation', [0, .1, 0], [w + .19, .2, d + .19], 'trim', radius + .055);
+      form('Rounded wall mass', [0, .2 + height / 2, 0], [w, height, d], 'wall', radius, 0, .04);
+    } else {
+      box('Foundation', [0, .1, 0], [w + .16, .2, d + .16], 'trim');
+      box('Wall mass', [0, .2 + height / 2, 0], [w, height, d]);
+    }
+  }
+  function roof(w, d, y, { rim = .24, height = .24, radius = 0, deck = 'roof' } = {}) {
+    const slab = [w, .16, d];
+    if (radius) form('Continuous roof slab', [0, y - .08, 0], slab, 'trim', radius);
+    else box('Roof slab', [0, y - .08, 0], slab, 'trim');
+    box('Inset roof deck', [0, y + .025, 0], [w - 2 * rim + .08, .05, d - 2 * rim + .08], deck);
+    form('Continuous roof rim', [0, y + height / 2, 0], [w, height, d], 'trim', radius, rim, Math.min(.055, height * .2));
+  }
+  function frontFrame(name, x, y, z, w, h, { border = .1, mat = 'glass', surround = 'trim', depth = .13 } = {}) {
+    box(name + ' surround', [x, y, z + depth / 2], [w + 2 * border, h + 2 * border, depth], surround);
+    box(name + ' pane', [x, y, z + depth + .014], [w, h, .038], mat, .009);
+  }
+  function sideFrame(side, x, y, z, w, h, { border = .1, mat = 'glass', surround = 'trim' } = {}) {
+    box('Side window surround', [side * (x + .05), y, z], [.13, h + 2 * border, w + 2 * border], surround);
+    box('Side window pane', [side * (x + .13), y, z], [.04, h, w], mat, .009);
+  }
+  function canopy(w, y, front, { stripes = 7, projection = 1.05, drop = .23, round = .045 } = {}) {
+    const step = w / stripes;
+    for (let i = 0; i < stripes; i += 1) {
+      const x = (i - (stripes - 1) / 2) * step;
+      const color = i % 2 === 0 ? 'accent' : 'trim';
+      box('Sloped awning stripe ' + (i + 1), [x, y, front + projection * .46], [step, .18, projection], color, round, .24);
+      box('Awning valance ' + (i + 1), [x, y - .13 - drop / 2, front + projection * .93], [step, drop, .17], color, round);
+    }
+  }
+  function shop(front, width, height, { mat = 'glass', border = .08, sideBays = true, surround = 'trim' } = {}) {
+    const door = sideBays ? width * .34 : width * .51;
+    frontFrame('Entry', 0, .21 + height / 2, front, door, height, { border, mat, surround });
+    const paneZ = front + .171;
+    box('Door divider', [0, .21 + height / 2, paneZ], [.052, height, .05], surround, .008);
+    for (const x of [-.10, .10]) box('Entry pull', [x, .92, paneZ + .033], [.025, .21, .04], 'trim', .004);
+    if (sideBays) {
+      const pane = (width - door) / 2 - .21;
+      for (const x of [-(door + pane) / 2 - .12, (door + pane) / 2 + .12]) {
+        frontFrame('Display', x, .31 + height * .46, front, pane, height * .86, { border, mat, surround });
+      }
+    }
+    box('Entry threshold', [0, .065, front + .18], [door + .26, .13, .55], 'trim');
+  }
+  function sideBays(w, positions, upper, lower, { mat = 'glass', tall = .94, surround = 'trim' } = {}) {
+    for (const side of [-1, 1]) {
+      for (const z of positions) {
+        sideFrame(side, w / 2, upper, z, .76, tall, { mat, surround, border: .075 });
+        sideFrame(side, w / 2, lower, z, .71, tall * 1.08, { mat, surround, border: .075 });
+      }
+    }
+  }
+  function rear(w, d, upper) {
+    for (const x of [-w * .23, w * .23]) {
+      box('Rear window trim', [x, upper, -d / 2 - .055], [.91, 1.05, .13], 'trim');
+      box('Rear window', [x, upper, -d / 2 - .13], [.73, .85, .04], 'glass', .008);
+    }
+    box('Rear service door', [0, 1.12, -d / 2 - .055], [.96, 1.84, .13], 'dark');
+  }
+  function planter(x, y, z, width, depth) {
+    box('Planter trough', [x, y, z], [width, .31, depth], 'trim', .055);
+    for (let i = 0; i < 5; i += 1) {
+      box('Clipped hedge block', [x + (i - 2) * width / 5.2, y + .25, z], [width / 5, .35 + (i % 2) * .055, depth - .10], 'green', .075);
+    }
+  }
+
+  switch (v.id) {
+    case '03B': {
+      const w = 5.35;
+      const d = 4.9;
+      body(w, d, 4.37);
+      // Heavy, stepped posts run uninterrupted from their plinths to oversized roof caps.
+      for (const x of [-w / 2 + .025, w / 2 - .025]) {
+        for (const z of [-d / 2 + .035, d / 2 - .035]) {
+          box('Corner plinth', [x, .35, z], [.93, .7, .93], 'wall', .115);
+          box('Lower corner pier', [x, 1.42, z], [.79, 1.66, .79], 'wall', .09);
+          box('Corner collar', [x, 2.33, z], [.9, .22, .9], 'trim', .045);
+          box('Upper corner pier', [x, 3.44, z], [.72, 2.03, .72], 'wall', .10);
+          box('Roof corner capital', [x, 4.70, z], [1.03, .62, 1.03], 'trim', .125);
+        }
+      }
+      box('Wide upper facade belt', [0, 2.56, 0], [w + .24, .31, d + .24], 'trim', .07);
+      roof(w + .36, d + .31, 4.57, { rim: .30, height: .21 });
+      hip('Broad clay hip roof', [0, 5.05, -.06], [4.87, 1.03, 4.30], [.13, .12]);
+      for (const x of [-1.10, 1.10]) frontFrame('Wide upper bay', x, 3.67, d / 2, 1.34, .78, { border: .15, depth: .19 });
+      shop(d / 2, 4.40, 1.59, { border: .085 });
+      canopy(4.77, 2.42, d / 2, { projection: 1.14, drop: .35, round: .066 });
+      sideBays(w, [-1.19, .98], 3.64, 1.30, { tall: .88 });
+      rear(w, d, 3.66);
+      break;
+    }
+    case '03A': {
+      const w = 5.48;
+      const d = 4.86;
+      body(w, d, 4.08, .43);
+      roof(w + .34, d + .34, 4.35, { rim: .38, height: .28, radius: .58 });
+      box('Offset soft roof block', [-1.48, 4.70, -1.34], [1.08, .62, 1.06], 'trim', .137);
+      for (const x of [-1.12, 1.12]) frontFrame('Small horizontal window', x, 3.27, d / 2, 1.21, .68, { border: .065 });
+      shop(d / 2, 4.5, 1.55, { border: .055 });
+      canopy(5.05, 2.29, d / 2, { projection: 1.00, drop: .32, round: .06 });
+      sideBays(w, [-1.13, .99], 3.30, 1.25, { tall: .82, surround: 'wall' });
+      rear(w, d, 3.32);
+      break;
+    }
+    case '01D': {
+      const w = 6.12;
+      const d = 4.68;
+      body(w, d, 5.06);
+      roof(w + .32, d + .29, 5.29, { rim: .25, height: .20, deck: 'trim' });
+      box('Facade stringcourse', [0, 2.75, 0], [w + .25, .24, d + .25], 'trim');
+      box('Pavilion base', [-.28, 5.41, -.35], [3.50, .28, 2.68], 'dark');
+      hip('Copper terrace pavilion', [-.28, 5.91, -.35], [3.53, .79, 2.72], [.075, .22]);
+      // Copper ridges follow the roof planes. The solar panel on the concept's apartment stays there.
+      const ridgeRise = .79;
+      const ridgeRun = 2.72 * (.5 - .22);
+      const ridgeLength = Math.hypot(ridgeRise, ridgeRun);
+      for (const side of [-1, 1]) {
+        box('Raised copper standing seam', [-.28, 5.92, -.35 + side * (2.72 * .22 + ridgeRun / 2)], [.038, .043, ridgeLength], 'accent', .005, side * Math.atan2(ridgeRise, ridgeRun));
+      }
+      planter(2.43, 5.43, .25, .52, 1.62);
+      planter(-2.33, 5.43, 1.78, 1.03, .41);
+      planter(.82, 5.43, -1.85, 1.20, .40);
+      for (const x of [-2.62, -1.29, 0, 1.29, 2.62]) {
+        box('Slender stone pilaster', [x, 3.94, d / 2 + .08], [.16, 2.15, .23], 'trim');
+      }
+      for (const x of [-1.98, -.65, .65, 1.98]) frontFrame('Tall upper bay', x, 3.99, d / 2, .74, 1.34);
+      shop(d / 2, 5.15, 1.97);
+      canopy(5.49, 2.54, d / 2, { stripes: 9, projection: 1.02, drop: .22 });
+      sideBays(w, [-1.45, 0, 1.43], 4.02, 1.38, { tall: 1.24 });
+      rear(w, d, 4.02);
+      break;
+    }
+    case '02D': {
+      const w = 5.71;
+      const d = 5.05;
+      body(w, d, 4.82);
+      roof(w + .35, d + .35, 5.01, { rim: .28, height: .27 });
+      hip('Low faceted inset roof', [0, 5.16, 0], [w - .48, .32, d * .93], [.16, .14]);
+      for (const [x, z, size, h] of [[.64, -.76, .96, .67], [-.79, 1.15, .71, .43]]) {
+        box('Low roof vent housing', [x, 5.18 + h / 2, z], [size, h, size * .82], 'dark');
+        box('Roof vent lid', [x, 5.22 + h, z], [size + .08, .095, size * .88], 'trim');
+        for (let i = -1; i <= 1; i += 1) box('Vent louver', [x, 5.28 + h, z + i * .16], [size * .64, .033, .045], 'dark', 0);
+      }
+      box('Terracotta awning ledge', [0, 2.54, d / 2], [w - .18, .23, .30], 'roof');
+      for (const x of [-1.72, 0, 1.72]) frontFrame('Amber upper window', x, 3.79, d / 2, 1.03, .82, { mat: 'glow', surround: 'roof', depth: .17 });
+      shop(d / 2, 4.92, 1.83, { mat: 'glow', surround: 'dark' });
+      canopy(5.25, 2.45, d / 2, { projection: 1.17, drop: .29, round: .022 });
+      sideBays(w, [-1.35, .58], 3.75, 1.40, { mat: 'glow', tall: 1.04, surround: 'roof' });
+      rear(w, d, 3.76);
+      break;
+    }
+    case '04C': {
+      const w = 5.65;
+      const d = 4.28;
+      body(w, d, 5.36);
+      roof(w + .29, d + .25, 5.59, { rim: .19, height: .16 });
+      for (const x of [-1.42, 0, 1.42]) box('Raised roof beam', [x, 5.85, -.13], [.35, .49, 2.59], 'trim');
+      box('Broad balcony slab', [0, 3.13, d / 2 + .16], [5.43, .27, .57], 'trim');
+      planter(.22, 3.39, d / 2 + .17, 4.61, .52);
+      for (const x of [-1.68, 0, 1.68]) frontFrame('Upper ribbon glazing', x, 4.32, d / 2, 1.39, .93, { border: .065 });
+      box('Cream base course', [0, .33, 0], [w + .1, .29, d + .10], 'trim');
+      shop(d / 2, 4.91, 2.03, { border: .065 });
+      canopy(4.87, 2.58, d / 2, { projection: .95, drop: .28 });
+      sideBays(w, [-.98, .85], 4.19, 1.38, { tall: 1.18, surround: 'wall' });
+      rear(w, d, 4.17);
+      break;
+    }
+    case '04D': {
+      const w = 5.86;
+      const d = 4.48;
+      body(w, d, 5.0);
+      roof(w + .31, d + .29, 5.23, { rim: .21, height: .19 });
+      const cap = [-.95, 5.57, -.41];
+      box('Low rose roof cap', cap, [2.15, .60, 1.83], 'wall');
+      form('Inset crown on roof cap', [cap[0], 5.93, cap[2]], [2.29, .14, 1.97], 'trim', 0, .12);
+      box('Wraparound balcony belt', [0, 3.04, .08], [w + .3, .30, d + .35], 'trim');
+      planter(.36, 3.36, d / 2 + .23, 4.81, .62);
+      for (const x of [-1.76, 0, 1.76]) frontFrame('Lit upper ribbon bay', x, 4.02, d / 2, 1.42, .98, { mat: 'glow', border: .065 });
+      shop(d / 2, 4.94, 1.88, { border: .07 });
+      canopy(4.91, 2.60, d / 2, { projection: 1.09, drop: .28 });
+      sideBays(w, [-1.09, .91], 4.0, 1.42, { mat: 'glow', tall: 1.10, surround: 'wall' });
+      for (const side of [-1, 1]) {
+        box('Recessed warm cornice light', [side * (w / 2 + .07), 2.84, -.24], [.064, .075, 2.35], 'glow', .009);
+      }
+      rear(w, d, 4.01);
+      break;
+    }
+    default:
+      throw new Error('Unknown market concept ' + v.id);
+  }
+
+  const fallbackColors = { green: '#82994a', dark: '#514447' };
+  return {
+    id: v.id, name: v.name, units: 'meters', up: 'Y', front: '+Z', parts,
+    palette: Object.fromEntries(roles.map(role => [role, v[role] ?? fallbackColors[role]])),
+    bevelSegments: v.id === '03A' || v.id === '03B' ? 2 : 1,
+    cameraSide: v.side,
+    emissive,
+  };
 }
