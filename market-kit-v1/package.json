@@ -1,0 +1,11 @@
+{
+  "name": "worldfarm-market-kit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 4320",
+    "build:three": "node src/build-three.mjs",
+    "check": "node --check web/viewer.js && node --check src/build-three.mjs"
+  }
+}

@@ -1,0 +1,138 @@
+[
+  {
+    "file": "threejs/01D-market-threejs.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/materials/5"
+      }
+    ]
+  },
+  {
+    "file": "threejs/02D-market-threejs.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": []
+  },
+  {
+    "file": "threejs/03A-market-threejs.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/materials/5"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/materials/6"
+      }
+    ]
+  },
+  {
+    "file": "threejs/03B-market-threejs.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/materials/5"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/materials/6"
+      }
+    ]
+  },
+  {
+    "file": "threejs/04C-market-threejs.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/materials/5"
+      }
+    ]
+  },
+  {
+    "file": "threejs/04D-market-threejs.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": []
+  },
+  {
+    "file": "blender/01D-market-blender.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": []
+  },
+  {
+    "file": "blender/02D-market-blender.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": []
+  },
+  {
+    "file": "blender/03A-market-blender.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": []
+  },
+  {
+    "file": "blender/03B-market-blender.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": []
+  },
+  {
+    "file": "blender/04C-market-blender.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": []
+  },
+  {
+    "file": "blender/04D-market-blender.glb",
+    "errors": 0,
+    "warnings": 0,
+    "embeddedImages": 1,
+    "externalURIs": 0,
+    "issues": []
+  }
+]

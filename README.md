@@ -4,6 +4,10 @@ A Three.js foundation lab comparing three cube-based approaches to the same mark
 
 **Current milestone: 2026-11-03.** Working browser prototype and editable Figma file delivered. Figma owner team: **aklein personal**.
 
+## Market assets
+
+[Six market styles: native Three.js + Blender, embedded-texture GLBs](market-kit-v1/README.md) · [Complete download](deliverables/worldfarm-market-kit-v1.zip)
+
 ## Preview
 
 - [Working browser preview](https://worldfarm-foundation-lab.aklein00.chatgpt.site) — owner-private; sign in with the owning account.

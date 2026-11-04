@@ -1,0 +1,218 @@
+[
+  {
+    "file": "blender/01D-market-blender.glb",
+    "min": [
+      -3.26,
+      0.0,
+      -2.56
+    ],
+    "max": [
+      3.26,
+      6.19,
+      3.62
+    ],
+    "sizeMeters": [
+      6.52,
+      6.19,
+      6.18
+    ]
+  },
+  {
+    "file": "blender/02D-market-blender.glb",
+    "min": [
+      -3.1425,
+      0.0,
+      -2.42
+    ],
+    "max": [
+      3.1425,
+      6.85,
+      3.62
+    ],
+    "sizeMeters": [
+      6.285,
+      6.85,
+      6.04
+    ]
+  },
+  {
+    "file": "blender/03A-market-blender.glb",
+    "min": [
+      -3.1425,
+      0.0,
+      -2.47
+    ],
+    "max": [
+      3.1425,
+      5.775,
+      3.62
+    ],
+    "sizeMeters": [
+      6.285,
+      5.775,
+      6.09
+    ]
+  },
+  {
+    "file": "blender/03B-market-blender.glb",
+    "min": [
+      -3.215,
+      0.0,
+      -2.47
+    ],
+    "max": [
+      3.215,
+      6.26,
+      3.62
+    ],
+    "sizeMeters": [
+      6.43,
+      6.26,
+      6.09
+    ]
+  },
+  {
+    "file": "blender/04C-market-blender.glb",
+    "min": [
+      -3.1425,
+      0.0,
+      -2.42
+    ],
+    "max": [
+      3.1425,
+      5.71,
+      3.62
+    ],
+    "sizeMeters": [
+      6.285,
+      5.71,
+      6.04
+    ]
+  },
+  {
+    "file": "blender/04D-market-blender.glb",
+    "min": [
+      -3.1425,
+      0.0,
+      -2.42
+    ],
+    "max": [
+      3.1425,
+      6.49,
+      3.62
+    ],
+    "sizeMeters": [
+      6.285,
+      6.49,
+      6.04
+    ]
+  },
+  {
+    "file": "threejs/01D-market-threejs.glb",
+    "min": [
+      -3.26,
+      -0.0,
+      -2.56
+    ],
+    "max": [
+      3.26,
+      6.19,
+      3.62
+    ],
+    "sizeMeters": [
+      6.52,
+      6.19,
+      6.18
+    ]
+  },
+  {
+    "file": "threejs/02D-market-threejs.glb",
+    "min": [
+      -3.1425,
+      -0.0,
+      -2.42
+    ],
+    "max": [
+      3.1425,
+      6.85,
+      3.62
+    ],
+    "sizeMeters": [
+      6.285,
+      6.85,
+      6.04
+    ]
+  },
+  {
+    "file": "threejs/03A-market-threejs.glb",
+    "min": [
+      -3.1425,
+      -0.0,
+      -2.47
+    ],
+    "max": [
+      3.1425,
+      5.775,
+      3.62
+    ],
+    "sizeMeters": [
+      6.285,
+      5.775,
+      6.09
+    ]
+  },
+  {
+    "file": "threejs/03B-market-threejs.glb",
+    "min": [
+      -3.215,
+      -0.0,
+      -2.47
+    ],
+    "max": [
+      3.215,
+      6.26,
+      3.62
+    ],
+    "sizeMeters": [
+      6.43,
+      6.26,
+      6.09
+    ]
+  },
+  {
+    "file": "threejs/04C-market-threejs.glb",
+    "min": [
+      -3.1425,
+      -0.0,
+      -2.42
+    ],
+    "max": [
+      3.1425,
+      5.71,
+      3.62
+    ],
+    "sizeMeters": [
+      6.285,
+      5.71,
+      6.04
+    ]
+  },
+  {
+    "file": "threejs/04D-market-threejs.glb",
+    "min": [
+      -3.1425,
+      -0.0,
+      -2.42
+    ],
+    "max": [
+      3.1425,
+      6.49,
+      3.62
+    ],
+    "sizeMeters": [
+      6.285,
+      6.49,
+      6.04
+    ]
+  }
+]
