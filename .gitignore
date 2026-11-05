@@ -2,3 +2,12 @@
 node_modules/
 .sites/
 *.log
+
+# Local hosting state and credentials
+.vercel/
+.wrangler/
+.env*
+!.env.example
+.dev.vars*
+# Generated website source bundle
+deliverables/worldfarm-studio-source.zip

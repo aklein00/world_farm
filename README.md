@@ -1,5 +1,17 @@
 # WorldFarm
 
+## New: 01.B workflow studio — November 5, 2026
+
+[Open the local workflow preview](http://127.0.0.1:4318) · [Studio instructions](studio/README.md) · [Vercel publishing setup](studio/PUBLISHING.md)
+
+The edited **01.B Shared style → building kit** flow is now implemented in `studio/`: shared styles, sample generation, piece edits, saved buildings, block assembly, selective style revisions, and project/PNG/sample-GLB exports. The studio now uses interactive 3D previews with orbit, zoom and part selection. Generate is available immediately and returns editable placeholder models. Vercel publishing is prepared for `worldfarm.utilityinfielder.com`; no deployment or DNS changes have been made. Start it with `cd studio` then `npm run dev` (Node.js 22+); no hosting account or API key is needed.
+
+The deployment boundary is `studio/` with only `studio/public/` copied into browser assets. Blender files, design documents and prior experiments remain outside it. A server-side Cloudflare password gate is prepared; no new hosting account, deployment or domain has been configured. Use the studio README for current scope and the ImageFarm source review below; older milestones describe the prior lab.
+
+[ImageFarm source review and WorldFarm setup decisions](docs/IMAGEFARM_REVIEW_2026-11-05.md)
+
+---
+
 A Three.js foundation lab comparing three cube-based approaches to the same market building, plus a native Figma prototype for the future environment studio.
 
 **Current milestone: 2026-11-03.** Working browser prototype and editable Figma file delivered. Figma owner team: **aklein personal**.
@@ -12,7 +24,9 @@ A Three.js foundation lab comparing three cube-based approaches to the same mark
 
 - [Working browser preview](https://worldfarm-foundation-lab.aklein00.chatgpt.site) — owner-private; sign in with the owning account.
 - [Figma editor](https://www.figma.com/design/iQF4XWbgrY5q2pPO7FTR7w)
-- [Figma click-through prototype](https://www.figma.com/proto/iQF4XWbgrY5q2pPO7FTR7w?node-id=5-2&starting-point-node-id=5%3A2)
+- [Figma guided prototype — start here](https://www.figma.com/proto/iQF4XWbgrY5q2pPO7FTR7w?node-id=15-7316&starting-point-node-id=15%3A7316)
+- [Saved building → city block](https://www.figma.com/proto/iQF4XWbgrY5q2pPO7FTR7w?node-id=15-8265&starting-point-node-id=15%3A8265)
+- [Guided wireframe design proposal](docs/GUIDED_WIREFRAMES_2026-11-03.md) — pending review; browser implementation unchanged.
 - [Milestone, decisions and validation](docs/MILESTONE_2026-11-03.md)
 - [Asset handoff](docs/ASSET_CHECKLIST.md)
 
