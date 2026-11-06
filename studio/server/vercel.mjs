@@ -21,6 +21,8 @@ export function assetServer(root){return {async fetch(request){
   }catch{return new Response('Not found',{status:404});}
 }};}
 export async function handleVercel(request,env,{assets=assetServer(fileURLToPath(new URL('../dist/',import.meta.url))),fetcher=fetch}={}){
+  // Vercel Marketplace supplies KV_*; direct Upstash setups use UPSTASH_*.
+  env={...env,UPSTASH_REDIS_REST_URL:env.UPSTASH_REDIS_REST_URL||env.KV_REST_API_URL,UPSTASH_REDIS_REST_TOKEN:env.UPSTASH_REDIS_REST_TOKEN||env.KV_REST_API_TOKEN};
   // An unconfigured deployment is locked, including its generated Vercel URLs.
   if(!/^https:\/\/[^/]+\.upstash\.io\/?$/.test(env.UPSTASH_REDIS_REST_URL||'')||!env.UPSTASH_REDIS_REST_TOKEN)return new Response('World Farm is locked: configure the server-side sign-in limiter.',{status:503,headers:{'Cache-Control':'no-store','X-Robots-Tag':'noindex, nofollow'}});
   return worker.fetch(request,{WORLDFARM_PASSWORD:env.WORLDFARM_PASSWORD,SESSION_SECRET:env.SESSION_SECRET,LOGIN_LIMITER:loginLimiter(env,fetcher),ASSETS:assets});

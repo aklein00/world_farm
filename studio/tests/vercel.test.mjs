@@ -30,6 +30,12 @@ test('Vercel login limiter shares an atomic expiring budget and fails on service
     const response=await handleVercel(request('/login',{method:'POST',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:'password=x'}),env,{...options,fetcher});assert.equal(response.status,503);
   }
 });
+test('Vercel Marketplace credentials support a real sign-in request',async()=>{
+  const marketplace={WORLDFARM_PASSWORD:env.WORLDFARM_PASSWORD,SESSION_SECRET:env.SESSION_SECRET,KV_REST_API_URL:env.UPSTASH_REDIS_REST_URL,KV_REST_API_TOKEN:env.UPSTASH_REDIS_REST_TOKEN};
+  let called=false;
+  const response=await handleVercel(request('/login',{method:'POST',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:'password='+env.WORLDFARM_PASSWORD}),marketplace,{...options,fetcher:async(url,init)=>{called=true;assert.equal(url,marketplace.KV_REST_API_URL);assert.equal(init.headers.Authorization,'Bearer '+marketplace.KV_REST_API_TOKEN);return Response.json({result:1});}});
+  assert.equal(called,true);assert.equal(response.status,303);assert.match(response.headers.get('Set-Cookie'),/__Host-worldfarm_session=/);
+});
 test('Vercel artifact has only a guarded function, includes runtime assets and can be imported',async()=>{
   execFileSync(process.execPath,['scripts/build-vercel.mjs'],{cwd:fileURLToPath(new URL('../',import.meta.url))});
   const root=new URL('../.vercel/output/',import.meta.url),config=JSON.parse(await readFile(new URL('config.json',root)));
