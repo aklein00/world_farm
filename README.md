@@ -1,5 +1,11 @@
 # WorldFarm
 
+## Proposal draft — November 10, 2026
+
+[Proposal and publishing register](docs/PROPOSAL_PUBLISHING_2026-11-10.md) · [Local proposal preview](http://127.0.0.1:4318/proposal.html)
+
+The proposal lives beside the studio and keeps the existing member gate. The register links current and earlier Figma workflows, records the verified hosting status, and separates review decisions from remaining launch checks. The live domain is configured; the older preparation notes below predate that deployment.
+
 ## New: 01.B workflow studio — November 5, 2026
 
 [Open the local workflow preview](http://127.0.0.1:4318) · [Studio instructions](studio/README.md) · [Vercel publishing setup](studio/PUBLISHING.md)
