@@ -8,12 +8,12 @@ import {fileURLToPath} from 'node:url';
 import {handleVercel,assetServer,loginLimiter} from '../server/vercel.mjs';
 const origin='https://worldfarm.utilityinfielder.com',env={WORLDFARM_PASSWORD:'test-password-only',SESSION_SECRET:'test-only-session-secret-1234567890123456789',UPSTASH_REDIS_REST_URL:'https://test.upstash.io',UPSTASH_REDIS_REST_TOKEN:'test-token'};
 const request=(p,init)=>new Request(origin+p,init),fetcher=async()=>Response.json({result:1}),options={assets:assetServer(fileURLToPath(new URL('../public/',import.meta.url))),fetcher};
-test('Vercel protects every asset and fails closed without credentials or limiter',async()=>{
-  for(const p of ['/','/modules/app.js','/vendor/three/three.module.js','/api/session','/gateway']){
+test('Vercel protects private assets and fails closed without credentials or limiter',async()=>{
+  for(const p of ['/workspace','/index.html','/modules/app.js','/vendor/three/three.module.js','/api/session','/gateway']){
     assert.equal((await handleVercel(request(p),{},options)).status,503);
     const response=await handleVercel(request(p),env,options);assert.equal(response.status,p.startsWith('/api/')?401:303);
   }
-  const broken={...env};delete broken.SESSION_SECRET;assert.equal((await handleVercel(request('/'),broken,options)).status,503);
+  const broken={...env};delete broken.SESSION_SECRET;assert.equal((await handleVercel(request('/workspace'),broken,options)).status,503);
 });
 test('Vercel sign-in serves real assets, rejects traversal and supports sign-out',async()=>{
   const login=await handleVercel(request('/login',{method:'POST',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:'password='+env.WORLDFARM_PASSWORD}),env,options);

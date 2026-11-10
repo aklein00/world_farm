@@ -8,6 +8,6 @@ for(const name of ['server','worker','dist'])await cp(path.join(root,name),path.
 await writeFile(path.join(fn,'package.json'),JSON.stringify({type:'module'}));
 await writeFile(path.join(fn,'.vc-config.json'),JSON.stringify({runtime:'nodejs22.x',handler:'server/vercel.mjs',launcherType:'Nodejs',supportsResponseStreaming:true}));
 // Deliberately no public static directory or filesystem fallback: every URL
-// reaches the authenticated function, including assets and /gateway itself.
+// reaches the access-control function, including assets and /gateway itself.
 await writeFile(path.join(output,'config.json'),JSON.stringify({version:3,routes:[{src:'/(.*)',dest:'/gateway'}]},null,2));
-console.log('Built Vercel output: every page and asset routes through the password gate.');
+console.log('Built Vercel output: every page and asset routes through the access-control function.');

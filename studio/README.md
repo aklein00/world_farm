@@ -1,5 +1,9 @@
 # World Farm Studio — 01.B workflow preview
 
+## Proposal route draft — November 10, 2026
+
+The review branch prepares `/` as a public proposal and `/workspace` as the password-protected studio. This route/access change is not deployed to production. [Current status and hand-work register](../docs/PROPOSAL_PUBLISHING_2026-11-10.md) supersedes older deployment-status statements below. Local preview starts at `/`; use `/workspace` for the interactive studio. Shared ImageFarm room tickets are planned, not connected, and sample generation spends no tickets.
+
 Implements the November 5 review of **01.B World Farm · Shared style → building kit** in [the Figma source](https://www.figma.com/design/iQF4XWbgrY5q2pPO7FTR7w?node-id=40-680). This is the new studio; the older foundation lab is retained separately.
 
 ## Publishing target
