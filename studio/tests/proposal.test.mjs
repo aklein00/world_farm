@@ -40,12 +40,12 @@ test('authenticated workspace route serves studio while homepage remains proposa
   const home=await handleVercel(new Request(origin,{headers}),env,options);assert.match(await home.text(),/Project proposal/);
   const login=await handleVercel(new Request(origin+'/login',{method:'POST',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:'password='+env.WORLDFARM_PASSWORD}),env,options);assert.equal(login.headers.get('Location'),'/workspace');
 });
-test('proposal links existing local assets and distinguishes design versions and planned tickets',async()=>{
+test('proposal links existing local assets and distinguishes design versions and planned credits',async()=>{
   const html=await readFile(path.join(root,'proposal.html'),'utf8');
   for(const [,href] of html.matchAll(/(?:href|src)="(\/[^"]+)"/g))if(href!=='/workspace')await access(path.join(root,href));
   assert.match(html,/node-id=40-680/);assert.match(html,/node-id=14-548/);
   assert.match(html,/not frozen version-history snapshots/);assert.match(html,/generation uses sample models/);
-  assert.match(html,/5471d0f34f7eb31f74caffd50423c96118a490a5/);assert.match(html,/room tickets/);assert.match(html,/planned, not connected/);
+  assert.match(html,/5471d0f34f7eb31f74caffd50423c96118a490a5/);assert.match(html,/shared credits for WorldFarm and ImageFarm/);assert.doesNotMatch(html,/room tickets/i);assert.match(html,/planned, not connected/);
   const ids=new Set([...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
   for(const [,hash] of html.matchAll(/href="#([^"]+)"/g))assert.ok(ids.has(hash),`Missing anchor ${hash}`);
 });
