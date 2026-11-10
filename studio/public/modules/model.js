@@ -1,3 +1,4 @@
+import {generateCandidates, GENERATOR} from './generation.js';
 // Portable recipe state. No provider credentials, repository access or paid calls.
 export const SCHEMA = 1;
 export const TYPES = ['Bakery', 'Shop', 'Townhouse', 'Workshop'];
@@ -15,7 +16,10 @@ export function saveInitialStyle(p) {
   if (p.currentVersion) throw new Error('Use a style revision to change a saved family.');
   p.styles.push({...clone(p.styleDraft), version: 1}); p.currentVersion = 1;
 }
-export function candidatesFor(brief, version, round = 0) {
+export const candidatesFor = generateCandidates;
+
+// Kept for legacy example buildings and geometry regression checks.
+export function sampleCandidatesFor(brief, version, round = 0) {
   if (!TYPES.includes(brief.type)) throw new Error('Choose a supported shop, townhouse or workshop.');
   return ['Centered entrance', 'Offset entrance', 'Narrow shopfront'].map((layout, i) => ({
     id: id(), name: brief.type === 'Bakery' ? 'Harbor Bakery' : brief.type === 'Workshop' ? 'Repair workshop' : brief.type,
@@ -24,9 +28,9 @@ export function candidatesFor(brief, version, round = 0) {
     overrides: {}, pinned: {Windows: true, Doors: true, Roof: true, Building: true}, collection: 'Family buildings', source: 'mock-kit'
   }));
 }
-export const ROLE_KEYS = {Building: ['floors', 'width'], Windows: ['windowWidth', 'frameThickness'], Doors: ['doorWidth'], Roof: ['roofPitch', 'overhang']};
+export const ROLE_KEYS = {Building: ['floors', 'width', 'depth'], Windows: ['windowWidth', 'frameThickness', 'facadeBays'], Doors: ['doorWidth', 'entranceOffset'], Roof: ['roofPitch', 'overhang', 'awning', 'awningStripe']};
 export function effective(b, style) {
-  return {...b.parameters, frameThickness: .04 + style.trimWeight / 1000, overhang: style.roofTreatment === 'Broad cornice' ? .25 : .15, ...b.overrides};
+  return {depth:1, entranceOffset:b.baseline.variant===1?.09:0, facadeBays:3, awning:Number(b.baseline.awning), awningStripe:1, ...b.parameters, frameThickness: .04 + style.trimWeight / 1000, overhang: style.roofTreatment === 'Broad cornice' ? .25 : .15, ...b.overrides};
 }
 export function saveBuilding(p) {
   if (!p.draft || !p.draft.name.trim()) throw new Error('Give your building a name.');
@@ -76,11 +80,15 @@ export function parseProject(text) {
     return {version:num(x.version,1,10000,true),...(x.name!==undefined?{name:str(x.name,80)}:{}),marketStyle:choice(x.marketStyle??'04C',['04C','04D','03B','03A','01D','02D']),trimWeight:num(x.trimWeight,0,100),softness:num(x.softness,0,100),windowFamily:choice(x.windowFamily,['Inset rectangular','Divided panes']),roofTreatment:choice(x.roofTreatment,['Modest overhang','Broad cornice']),palette};
   };
   const bounds = {floors:[1,3],width:[.8,1.1],windowWidth:[.8,1.4],frameThickness:[.06,.16],doorWidth:[.8,1.3],roofPitch:[0,45],overhang:[.05,.3]};
-  const params = (x, partial=false) => { if (!obj(x)) return fail(); const result={}; for(const [k,[lo,hi]] of Object.entries(bounds)) if(!partial || k in x) result[k]=num(x[k],lo,hi,k==='floors'); return result; };
+  const extraBounds = {depth:[.85,1.05],entranceOffset:[-.16,.16],facadeBays:[1,4],awning:[0,1],awningStripe:[0,1]};
+  const params = (x, partial=false) => { if (!obj(x)) return fail(); const result={}; for(const [k,[lo,hi]] of Object.entries(bounds)) if(!partial || k in x) result[k]=num(x[k],lo,hi,k==='floors'); for(const [k,[lo,hi]] of Object.entries(extraBounds)) if(k in x) result[k]=num(x[k],lo,hi,!['entranceOffset','depth'].includes(k)); return result; };
   const building = b => {
-    if(!obj(b)||!obj(b.baseline)||!obj(b.pinned))return fail();
+    if(!obj(b)||!obj(b.baseline)||!obj(b.pinned)||!obj(b.parameters))return fail();
     const a=b.baseline,pinned={};for(const k of Object.keys(ROLE_KEYS)) pinned[k]=bool(b.pinned[k]);
-    return {id:uid(b.id),name:str(b.name),type:choice(b.type,TYPES),styleVersion:num(b.styleVersion,1,10000,true),baseline:{seed:num(a.seed,0,1e9,true),layout:str(a.layout),variant:num(a.variant,0,2,true),description:str(a.description,2000),footprint:choice(a.footprint,['1x2','2x2','3x2']),floors:num(a.floors,1,3,true),awning:bool(a.awning)},parameters:params(b.parameters),overrides:params(b.overrides,true),pinned,collection:str(b.collection),source:choice(b.source,['mock-kit'])};
+    const source=choice(b.source,['mock-kit',GENERATOR]);
+    let generation;
+    if(source===GENERATOR){const g=a.generation;if(!obj(g))return fail();generation={engine:choice(g.engine,[GENERATOR]),round:num(g.round,0,99999,true),roof:choice(g.roof,['shared','flat','pitched']),applied:list(g.applied,20).map(x=>str(x,300)),warnings:list(g.warnings,20).map(x=>str(x,500))};for(const key of Object.keys(extraBounds))if(!(key in b.parameters))return fail();}
+    return {id:uid(b.id),name:str(b.name),type:choice(b.type,TYPES),styleVersion:num(b.styleVersion,1,10000,true),baseline:{seed:num(a.seed,0,1e9,true),layout:str(a.layout),variant:num(a.variant,0,2,true),description:str(a.description,2000),footprint:choice(a.footprint,['1x2','2x2','3x2']),floors:num(a.floors,1,3,true),awning:bool(a.awning),...(generation?{generation}:{})},parameters:params(b.parameters),overrides:params(b.overrides,true),pinned,collection:str(b.collection),source};
   };
   if (!obj(raw)||raw.format!=='worldfarm-project'||raw.schemaVersion!==SCHEMA) return fail();
   const p=freshProject();p.name=str(raw.name);if(!p.name.trim())return fail();

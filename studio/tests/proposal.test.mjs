@@ -25,7 +25,7 @@ test('public content ignores session headers and query strings',async()=>{
   assert.equal(await clean.text(),await spoofed.text());
 });
 test('workspace, modules, APIs and unexpected asset paths remain private',async()=>{
-  for(const route of ['/workspace','/workspace/','/index.html','/modules/app.js','/assets/townhouse.svg','/api/session','/api/invites','/api/generate','/proposal.html/','/design-notes.html/','/design-notes.html/extra','/assets/blocks.svg/extra','/worker/public-routes.js']){
+  for(const route of ['/workspace','/workspace/','/index.html','/modules/app.js','/modules/generation.js','/assets/townhouse.svg','/api/session','/api/invites','/api/generate','/proposal.html/','/design-notes.html/','/design-notes.html/extra','/assets/blocks.svg/extra','/worker/public-routes.js']){
     assert.equal(publicAssetPath(new Request(origin+route)),null,route);
     assert.equal((await handleVercel(new Request(origin+route),{},options)).status,503);
     assert.equal((await handleVercel(new Request(origin+route),env,options)).status,route.startsWith('/api/')?401:303);
@@ -45,7 +45,7 @@ test('homepage opens the studio and keeps design references on a supplemental pa
   assert.doesNotMatch(html,/figma|node-id=|WORKING PROPOSAL|Proposal stub|twelve screens/i);
   assert.match(html,/<a class="action primary" href="\/workspace">Open studio/);
   assert.match(html,/href="\/design-notes.html"/);
-  assert.match(html,/generation uses sample models/);
+  assert.match(html,/supported descriptions generate editable building recipes locally, without AI or credits/);
   assert.match(html,/One style.<br>A family of buildings./);
   assert.match(html,/A shared style,<br>not a fixed building./);
   assert.match(html,/From a style family to a little world./);

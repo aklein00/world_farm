@@ -10,7 +10,7 @@ export function modelDocument(project){
   const accessor=(data,bounds)=>{const i=accessors.length;accessors.push({bufferView:append(data,34962),componentType:5126,count:data.length/3,type:'VEC3',...bounds});return i;};
   for(const inst of project.block.instances){
     const b=project.buildings.find(b=>b.id===inst.buildingId),model=buildBuilding(b,styleFor(project,b)),slot=SLOTS.indexOf(inst.slot),angle=inst.rotation*Math.PI/180;
-    const root=nodes.length;roots.push(root);nodes.push({name:`${b.name} / ${inst.slot}`,translation:[(slot%3-1)*12,0,(Math.floor(slot/3)-.5)*12],rotation:[0,Math.sin(angle/2),0,Math.cos(angle/2)],scale:model.scale.toArray(),children:[],extras:{buildingId:b.id,styleVersion:b.styleVersion,source:'mock-kit'}});
+    const root=nodes.length;roots.push(root);nodes.push({name:`${b.name} / ${inst.slot}`,translation:[(slot%3-1)*12,0,(Math.floor(slot/3)-.5)*12],rotation:[0,Math.sin(angle/2),0,Math.cos(angle/2)],scale:model.scale.toArray(),children:[],extras:{buildingId:b.id,styleVersion:b.styleVersion,source:b.source,recipe:{baseline:b.baseline,parameters:b.parameters,overrides:b.overrides},style:styleFor(project,b)}});
     for(const part of model.children){
       const g=part.geometry.index?part.geometry.toNonIndexed():part.geometry;g.computeBoundingBox();const m=part.material,key=m.color.getHexString()+':'+m.emissive.getHexString();let material=materialMap.get(key);
       if(material===undefined){material=materials.length;materialMap.set(key,material);materials.push({name:'#'+m.color.getHexString(),pbrMetallicRoughness:{baseColorFactor:[...m.color.toArray(),1],roughnessFactor:m.roughness,metallicFactor:0},emissiveFactor:m.emissive.clone().multiplyScalar(m.emissiveIntensity).toArray()});}
@@ -20,7 +20,7 @@ export function modelDocument(project){
     }
   }
   const binary=new Uint8Array(bytes);let offset=0;for(const chunk of chunks){binary.set(chunk,offset);offset+=chunk.length;}
-  return {doc:{asset:{version:'2.0',generator:'World Farm Market Kit studio'},scene:0,scenes:[{name:project.block.name,nodes:roots}],nodes,meshes,materials,buffers:[{byteLength:bytes}],bufferViews,accessors,extras:{units:'meters',source:'mock-kit',note:'Editable placeholder models derived from the original Market Kit 01 recipes. Includes viewport geometry and bevels; not AI-generated.'}},binary};
+  return {doc:{asset:{version:'2.0',generator:'World Farm Market Kit studio'},scene:0,scenes:[{name:project.block.name,nodes:roots}],nodes,meshes,materials,buffers:[{byteLength:bytes}],bufferViews,accessors,extras:{units:'meters',source:project.block.instances.some(i=>project.buildings.find(b=>b.id===i.buildingId)?.source==='procedural-kit-v1')?'procedural-kit-v1':'mock-kit',note:'Bounded editable kit geometry with named parts and source recipes. Not AI-generated; use World Farm project JSON to reopen the full editing workflow.'}},binary};
 }
 export function modelGLB(project){
   const {doc,binary}=modelDocument(project),text=new TextEncoder().encode(JSON.stringify(doc)),jsonLength=Math.ceil(text.length/4)*4,binLength=Math.ceil(binary.length/4)*4,total=12+8+jsonLength+8+binLength,buffer=new ArrayBuffer(total),view=new DataView(buffer),bytes=new Uint8Array(buffer);

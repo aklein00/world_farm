@@ -2,7 +2,7 @@
 
 ## Proposal route draft — November 10, 2026
 
-The review branch prepares `/` as a public proposal and `/workspace` as the password-protected studio. This route/access change is not deployed to production. [Current status and hand-work register](../docs/PROPOSAL_PUBLISHING_2026-11-10.md) supersedes older deployment-status statements below. Local preview starts at `/`; use `/workspace` for the interactive studio. Shared ImageFarm room tickets are planned, not connected, and sample generation spends no tickets.
+The review branch prepares `/` as a public proposal and `/workspace` as the password-protected studio. This route/access change is not deployed to production. [Current status and hand-work register](../docs/PROPOSAL_PUBLISHING_2026-11-10.md) supersedes older deployment-status statements below. Local preview starts at `/`; use `/workspace` for the interactive studio. Shared ImageFarm room tickets are planned, not connected, and procedural generation spends no credits.
 
 Implements the November 5 review of **01.B World Farm · Shared style → building kit** in [the Figma source](https://www.figma.com/design/iQF4XWbgrY5q2pPO7FTR7w?node-id=40-680). This is the new studio; the older foundation lab is retained separately.
 
@@ -24,16 +24,18 @@ Open [World Farm](http://127.0.0.1:4318). The server binds only to your computer
 ## What you can test
 
 1. Name a family and choose an original Market Kit 01 style: Peach Modern, Rose Twilight, Honey Corners, Soft Blocks, Copper Rooftops or Amber Afterglow. Adjust its palette, windows, roof treatment, trim and softness. The reference-color button restores the selected palette without changing saved versions until you apply the revision.
-2. Use Generate immediately with the default style, or save your own style v1. Describe a supported building, and generate three **sample** candidates. A checkbox lets you test generation failure and retry.
+2. Use Generate immediately with the default style, or save your own style v1. Describe a supported building, and generate three **procedural** candidates. The interpretation panel lists recognized details and any conflicts. Unsupported requests produce an actionable error without changing saved buildings. See [the generation contract](GENERATION.md).
 3. Accept a candidate, then edit Building, Windows, Doors and Roof. Pin overrides or reset a role to shared defaults.
 4. Save the reusable building. Generate additional types using the same shared style. An empty library offers the three wireframe examples as a shortcut.
 5. Add copies to six reserved plots. Move, rotate, duplicate, remove and undo. Occupied plots keep a placement as a draft; review is blocked until you place or cancel it.
-6. Review the block at full or phone-preview width. Export a World Farm project, current-camera 3D PNG, or sample-kit GLB.
+6. Review the block at full or phone-preview width. Export a World Farm project, current-camera 3D PNG, or building-kit GLB.
 7. Edit the shared style from My buildings. Preview a draft, compare each building, select update targets, then apply. Unchecked buildings retain their version; pinned edits and all copy transforms survive. Previous versions remain selectable per building.
 
 **Persistence:** drafts and saved work stay in this browser's local storage. Import/export uses validated versioned JSON and retains recipes, styles, overrides, placements and in-progress drafts. Export a backup before changing browser or starting a new family. Signing out does not erase browser-local projects. This is a single-owner prototype, not isolated multi-user storage.
 
-**Placeholders:** no AI service interprets prompts or generates art/models. Candidates are deterministic kit samples driven by type, footprint, height and awning choices. Descriptions are retained for future generation. All building previews and block assembly use interactive Three.js 3D scenes. Drag to orbit, scroll to zoom, and use arrow keys when a viewport is focused. Click building parts to select an editing role or click block plots to select/place copies. The studio now reuses the original Market Kit 01 recipes, preserving the reference proportions and architectural details. Orthographic cameras avoid perspective distortion. Viewport and GLB share beveled geometry, sloped awnings, shaped roofs, materials and named parts. These remain editable placeholders, without production topology or boolean openings. Existing project colors are preserved; choose a preset or Restore reference colors in a style draft to recover the original palette. Fixed plot reservations prevent occupied-slot collisions; arbitrary geometry/entrance-clearance validation, freeform roads, performance validation and cloud project storage remain future work. No claim of game-engine-ready production output is made.
+**Generation:** a small local grammar turns supported description details into editable building recipes. It changes facade layout, openings, roof shape, frontage and awning pattern within the controls and shared style. Unlisted prose stays as notes. This is procedural generation, not AI; no provider, key or credits are used. All building previews and block assembly use interactive Three.js scenes. Drag to orbit, scroll to zoom, and use arrow keys when a viewport is focused. Click parts to select an editing role or block plots to select/place copies. The original Market Kit 01 supplies the visual families and named architectural pieces. Viewport and GLB use the same beveled geometry, sloped awnings, shaped roofs and materials. GLB includes source recipe/style metadata; project JSON reopens the complete editing workflow. Legacy sample projects retain their shapes and colors.
+
+**Limits:** the kit has fixed plot envelopes and bounded front-opening slots. Production topology, boolean openings, structural/entrance-clearance validation, freeform roads, arbitrary architecture, destination-engine performance validation and cloud project storage remain future work. No claim of game-engine-ready output is made. See [GENERATION.md](GENERATION.md) for supported wording, reproducibility and verification limits.
 
 ## Reusable styles
 

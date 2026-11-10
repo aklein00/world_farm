@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {freshProject,saveInitialStyle,candidatesFor,saveBuilding,beginRevision,applyRevision,effective,place,parseProject,projectFile,clone} from '../public/modules/model.js';
+import {freshProject,saveInitialStyle,sampleCandidatesFor as candidatesFor,saveBuilding,beginRevision,applyRevision,effective,place,parseProject,projectFile,clone} from '../public/modules/model.js';
 import {buildBuilding,buildingParts,MARKET_STYLES} from '../public/modules/architecture.js';
 import {recipe,variants} from '../public/modules/market-recipes.js';
 import {modelGLB,modelDocument} from '../public/modules/export.js';
