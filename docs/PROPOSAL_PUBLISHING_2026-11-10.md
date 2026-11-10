@@ -1,6 +1,6 @@
 # World Farm proposal: version and publishing register
 
-Checked 10 November 2026. This is an additive proposal draft, not a production launch or a change to access controls.
+Checked 10 November 2026. This is a proposal draft and a public/private route split. Deployment of the public proposal and protected workspace was explicitly approved. Confirm the actual deployment result before treating it as live.
 
 ## Start here
 
@@ -10,7 +10,7 @@ Checked 10 November 2026. This is an additive proposal draft, not a production l
 - Code source: [aklein00/world_farm](https://github.com/aklein00/world_farm), website folder `studio/`.
 - [Vercel project](https://vercel.com/aklein00s-projects/worldfarm).
 
-The draft adds a Proposal link inside the existing studio. The studio stays at `/`; the proposal is `/proposal.html` and inherits the same server-side gate. It is not yet a public landing page. No auth, DNS, environment values, or Figma sharing was changed.
+Following the updated request, the branch prepares the proposal as the public `/` homepage (also `/proposal.html`), and moves the studio to `/workspace` behind the existing member-password gate. Only the proposal HTML, CSS, icon and three fonts are allowlisted publicly. Application modules, other assets and `/api/*` remain protected. Query strings and session cookies cannot turn the public page into a private-data view. Production access, DNS, environment values and Figma sharing have not changed.
 
 ## Workflow versions
 
@@ -36,20 +36,28 @@ Current evidence:
 - `worldfarm.utilityinfielder.com` is verified. DNS configuration reports `misconfigured: false`; Cloudflare nameservers and a Vercel CNAME are present. No DNS repair is currently indicated.
 - Required production environment-variable names are present: `APP_ORIGIN`, `WORLDFARM_PASSWORD`, `SESSION_SECRET`, `KV_REST_API_URL`, `KV_REST_API_TOKEN`. Values were not decrypted. Source supports Vercel Marketplace KV aliases in addition to direct Upstash names.
 - Unauthenticated HTTPS `/` returns 303 to `/login`; `/login` is available. This is the intentional member gate, not evidence of a broken deployment. Successful member login, Redis connectivity during login, and the hosted authenticated studio were not tested.
-- Variables are scoped to Production. A branch Preview may build but remain locked without its own Preview configuration. Do not copy production secrets into Preview or weaken the gate to obtain a preview.
+- Variables are scoped to Production. The prepared public proposal can render on a branch Preview, but its private workspace stays locked without its own Preview configuration. Do not copy production secrets into Preview or weaken the gate to obtain a preview.
 
 The older `studio/PUBLISHING.md` is the setup guide; its historical “nothing deployed” statements predate the verified deployment above. Use this dated status for what is already done, and the guide for configuration requirements.
+
+## Prepared branch status
+
+The initial proposal-only draft is saved on `dot/worldfarm-proposal-2026-11-10`. Its Vercel preview built successfully at commit `7048b29`; that first draft retains the original whole-site member gate. The newer public-homepage/private-workspace change passed syntax checks, all 29 tests and the Vercel build. Deployment and a draft pull request are approved. The production release is being built from the exact reviewed branch commit, without merging the draft PR. Reconcile this branch with `main` before a later main-branch release to avoid overwriting it. Record the final deployment and PR links after verification.
 
 ## Hand work and decisions
 
 1. **Review the draft.** Use the local preview or the source branch. Confirm the narrative and one demonstration example.
 2. **Edit and name the Figma revision.** Save a named version and note changed screens. Figma changes do not automatically update the website.
-3. **Choose proposal access.** Keep the proposal member-only, or approve a separate public proposal route while the studio remains protected. This draft does not make that choice.
+3. **Verify the approved access change.** The proposal should load without sign-in, while `/workspace`, application modules and APIs stay protected. Generation remains a sample prototype, without ticket spending.
 4. **Confirm a real member sign-in.** Use the password you already configured. Do not paste it into chat or commit it. Check one complete studio flow and export a backup.
-5. **Publish the reviewed code.** Merge the draft branch when ready. The existing Vercel project uses Git deployments from `main`; merging can trigger a production deployment. Check the exact new commit/deployment afterward before calling the proposal live. No manual DNS work is currently required.
+5. **Keep the release and source in sync.** After reviewing the draft PR, merge the branch when ready. The existing Vercel project uses Git deployments from `main`; merging can trigger a production deployment. Check its exact commit/deployment afterward. No manual DNS work is currently required.
 
 ## Simple update loop
 
 Figma 01.B → named design revision → short change note → `proposal.html`/`proposal.css` and relevant studio modules → tests → review → production deployment.
 
 Keep current implemented capabilities separate from future features. Sample generation, browser saves, piece edits and exports are implemented. AI generation, cloud storage, individual accounts and collaboration are future work. Revalidate intended asset exports in their destination engine before claiming production readiness.
+
+## Invite tickets: next implementation boundary
+
+The requested name is ImageFarm’s existing **room tickets**. WorldFarm currently has no invite ledger or paid generation provider. Shared tickets are planned, not implemented or tested. Sample candidate generation must remain free and must never debit a real balance. One authoritative balance service, app-specific access, atomic reservations/refunds and a defined WorldFarm journey allowance are required before shared spending can be enabled. Do not share owner passwords, session secrets, project storage or broad database access between the apps.

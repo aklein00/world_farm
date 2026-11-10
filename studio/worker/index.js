@@ -1,3 +1,4 @@
+import {publicAssetPath} from './public-routes.js';
 const COOKIE='__Host-worldfarm_session',TTL=60*60*24*7,encoder=new TextEncoder();
 async function key(secret){return crypto.subtle.importKey('raw',encoder.encode(secret),{name:'HMAC',hash:'SHA-256'},false,['sign','verify']);}
 async function sign(secret,message){return new Uint8Array(await crypto.subtle.sign('HMAC',await key(secret),encoder.encode(message)));}
@@ -19,8 +20,10 @@ function loginPage(error='',status=200){return new Response(`<!doctype html><htm
 async function boundedForm(request){if(!request.headers.get('Content-Type')?.startsWith('application/x-www-form-urlencoded'))return null;const reader=request.body?.getReader();if(!reader)return null;let size=0,text='',decoder=new TextDecoder();try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>4096){await reader.cancel();return null;}text+=decoder.decode(value,{stream:true});}text+=decoder.decode();return new URLSearchParams(text);}finally{reader.releaseLock();}}
 async function handle(request,env){
   const url=new URL(request.url),password=env.WORLDFARM_PASSWORD,secret=env.SESSION_SECRET;
-  if(!password||password.length<12||!secret||secret.length<32)return new Response('World Farm is locked: configure a member password (12+ characters) and a session secret (32+ characters).',{status:503});
   if(url.protocol!=='https:'&&url.hostname!=='127.0.0.1'&&url.hostname!=='localhost'){url.protocol='https:';return Response.redirect(url.href,308);}
+  const publicPath=publicAssetPath(request);
+  if(publicPath){const target=new URL(request.url);target.pathname=publicPath;target.search='';return env.ASSETS.fetch(new Request(target,{method:request.method}));}
+  if(!password||password.length<12||!secret||secret.length<32)return new Response('World Farm is locked: configure a member password (12+ characters) and a session secret (32+ characters).',{status:503});
   if(url.pathname==='/login'){
     if(['GET','HEAD'].includes(request.method)){const r=loginPage();return request.method==='HEAD'?new Response(null,r):r;}
     if(request.method!=='POST'||!sameOrigin(request))return new Response('Forbidden',{status:403});
@@ -28,7 +31,7 @@ async function handle(request,env){
     if(!(await env.LOGIN_LIMITER.limit({key:`login:${request.headers.get('CF-Connecting-IP')||'unknown'}`})).success)return new Response('Too many sign-in attempts. Wait one minute and try again.',{status:429,headers:{'Retry-After':'60'}});
     const form=await boundedForm(request),attempt=form?.get('password')||'';
     if(!attempt||attempt.length>256||!(await passwordMatches(secret,attempt,password)))return loginPage('That password did not match. Please try again.',401);
-    const r=redirect('/');r.headers.set('Set-Cookie',cookie(await createSession(secret,password),TTL));return r;
+    const r=redirect('/workspace');r.headers.set('Set-Cookie',cookie(await createSession(secret,password),TTL));return r;
   }
   if(url.pathname==='/logout'){
     if(request.method!=='POST'||!sameOrigin(request))return new Response('Forbidden',{status:403});
@@ -39,7 +42,8 @@ async function handle(request,env){
   if(url.pathname==='/api/session')return Response.json({local:false,role:'owner',generation:'mock'});
   if(url.pathname.startsWith('/api/'))return Response.json({error:'No generation services are connected.'},{status:404});
   // No filesystem, GitHub token, repository binding, or external provider exists.
-  // Every static asset is reached only after the session check above.
+  // Only the explicitly allowlisted proposal assets bypass the session check.
+  if(url.pathname==='/workspace'||url.pathname==='/workspace/'){url.pathname='/index.html';return env.ASSETS.fetch(new Request(url,request));}
   return env.ASSETS.fetch(request);
 }
 export default {async fetch(request,env){try{return secure(await handle(request,env));}catch{return secure(new Response('World Farm is temporarily unavailable.',{status:503}));}}};

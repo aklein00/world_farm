@@ -4,6 +4,7 @@ import {pipeline} from 'node:stream/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import worker from '../worker/index.js';
+import {publicAssetPath} from '../worker/public-routes.js';
 const MIME={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ttf':'font/ttf','.txt':'text/plain; charset=utf-8'};
 const script="local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],60) end; return n";
 // One shared budget across instances and addresses prevents IP header spoofing
@@ -21,6 +22,8 @@ export function assetServer(root){return {async fetch(request){
   }catch{return new Response('Not found',{status:404});}
 }};}
 export async function handleVercel(request,env,{assets=assetServer(fileURLToPath(new URL('../dist/',import.meta.url))),fetcher=fetch}={}){
+  // The static proposal is public; private requests still fail closed below.
+  if(publicAssetPath(request))return worker.fetch(request,{ASSETS:assets});
   // Vercel Marketplace supplies KV_*; direct Upstash setups use UPSTASH_*.
   env={...env,UPSTASH_REDIS_REST_URL:env.UPSTASH_REDIS_REST_URL||env.KV_REST_API_URL,UPSTASH_REDIS_REST_TOKEN:env.UPSTASH_REDIS_REST_TOKEN||env.KV_REST_API_TOKEN};
   // An unconfigured deployment is locked, including its generated Vercel URLs.
