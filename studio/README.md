@@ -118,3 +118,15 @@ npm run deploy:check
 Node tests cover auth failures, session tampering/expiry/rotation, login rate limits, candidate acceptance, selective style updates, pinned edits, overlap rejection, import validation, project round trips and GLB structure. Regression tests also compare all six default templates against their original recipe dimensions and check exported bevels, awning rotations and legacy project compatibility. The local browser workflow is checked separately. Deployment and live account/domain behavior must be verified after hosting setup.
 
 Typography is DM Sans and Space Grotesk (SIL Open Font License). Icons and the retained townhouse asset were downloaded from the supplied Figma design. Interactive previews use locally bundled Three.js r181 (MIT license).
+
+## Current: Style graybox workflow — November 12, 2026
+
+The workspace now follows the [02 Style graybox approval flow](https://www.figma.com/design/iQF4XWbgrY5q2pPO7FTR7w?node-id=86-692). Earlier sections describe the retained **Previous studio**, available at `/legacy.html` behind the same sign-in gate. Its local storage is untouched.
+
+Current sequence: choose theme/starter → guided style fields → review and approve constrained prompt → review one cube sample → approve style → create and save buildings/decorations → assemble 4×4 world → stage/apply plot heights or preview/apply replacement → review → export project, GLB or PNG.
+
+The geometry is exclusively cube/cuboid primitives. Nine themes, three starter palettes, shape/proportion/detail controls and bounded building dimensions drive deterministic recipes. **No AI service is connected.** Style blurbs, object descriptions and moods are saved direction notes, not semantic generation inputs. The organized prompt explicitly discloses this before approval. This is an interactive procedural workflow implementation, not the full proposed AI product.
+
+Projects use a separate `worldfarm-graybox-v1` browser storage key and validated versioned JSON. Source assets are copied into placements by reference; replacement preserves position/rotation. Terrain remains staged until Apply. Existing projects from the previous studio are opened there, not silently migrated. JSON retains editing data; GLB contains cube geometry, terrain, materials and part labels; PNG is the current camera view.
+
+Not implemented: arbitrary free-text interpretation, automatic roads/entrance-clearance validation, AI provider, shared credits, individual identity, cloud synchronization, production topology/performance validation. No provider calls, paid dependencies or security settings were added. The existing production authentication boundary continues to guard `/workspace`, `/legacy.html` and all application modules.

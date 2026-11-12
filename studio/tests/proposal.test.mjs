@@ -35,7 +35,7 @@ test('workspace, modules, APIs and unexpected asset paths remain private',async(
 test('authenticated workspace route serves studio while homepage remains public',async()=>{
   const token=await createSession(env.SESSION_SECRET,env.WORLDFARM_PASSWORD),headers={Cookie:`__Host-worldfarm_session=${token}`};
   for(const route of ['/workspace','/workspace/']){
-    const response=await handleVercel(new Request(origin+route,{headers}),env,options);assert.equal(response.status,200);assert.match(await response.text(),/modules\/app.js/);
+    const response=await handleVercel(new Request(origin+route,{headers}),env,options);assert.equal(response.status,200);assert.match(await response.text(),/modules\/graybox-app.js/);
   }
   const home=await handleVercel(new Request(origin,{headers}),env,options);assert.match(await home.text(),/<title>World Farm<\/title>/);
   const login=await handleVercel(new Request(origin+'/login',{method:'POST',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:'password='+env.WORLDFARM_PASSWORD}),env,options);assert.equal(login.headers.get('Location'),'/workspace');
@@ -45,7 +45,8 @@ test('homepage opens the studio and keeps design references on a supplemental pa
   assert.doesNotMatch(html,/figma|node-id=|WORKING PROPOSAL|Proposal stub|twelve screens/i);
   assert.match(html,/<a class="action primary" href="\/workspace">Open studio/);
   assert.match(html,/href="\/design-notes.html"/);
-  assert.match(html,/supported descriptions generate editable building recipes locally, without AI or credits/);
+  assert.match(html,/explicit controls generate cube recipes locally, without AI or credits/);
+  assert.match(html,/Short text is saved as direction notes, not interpreted by a model/);
   assert.match(html,/One style.<br>A family of buildings./);
   assert.match(html,/A shared style,<br>not a fixed building./);
   assert.match(html,/From a style family to a little world./);
